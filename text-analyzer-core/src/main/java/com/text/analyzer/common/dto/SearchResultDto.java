@@ -1,11 +1,13 @@
-package com.text.analyzer.dto;
+package com.text.analyzer.common.dto;
 
+import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+@Getter
 @ToString
 @SuperBuilder
 public class SearchResultDto {
     private String name;
-    private String numberOfSearches;
+    private int numberOfSearches;
 }
