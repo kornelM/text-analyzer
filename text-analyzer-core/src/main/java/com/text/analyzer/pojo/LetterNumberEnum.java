@@ -1,9 +1,14 @@
 package com.text.analyzer.pojo;
 
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@ToString
 public enum LetterNumberEnum {
     ONE_LETTER_SEARCH(1),
     TWO_LETTER_SEARCH(2),
@@ -14,7 +19,7 @@ public enum LetterNumberEnum {
     SEVEN_LETTER_SEARCH(7),
     EIGHT_LETTER_SEARCH(8),
     NINE_LETTER_SEARCH(9),
-    TEN_OR_MORE_LETTER_SEARCH(-1);
+    TEN_OR_MORE_LETTER_SEARCH(10);
 
     private final int wordLength;
 
