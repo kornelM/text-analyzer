@@ -1,5 +1,8 @@
 package com.text.analyzer.pojo;
 
+import lombok.Getter;
+
+@Getter
 public enum WordSearchEnum {
     ONE_WORD_SEARCH(1),
     TWO_WORDS_SEARCH(2),
@@ -18,14 +21,18 @@ public enum WordSearchEnum {
         this.wordLength = wordLength;
     }
 
-    public static WordSearchEnum fromValue(int givenWordLength) {
+    public static WordSearchEnum fromString(String givenWordLength) {
+        return WordSearchEnum.valueOf(valueOf(givenWordLength.length()));
+    }
+
+    public static String valueOf(int givenWordLength) {
         WordSearchEnum[] values = WordSearchEnum.values();
 
         for (WordSearchEnum wordCountEnum : values) {
             if (wordCountEnum.wordLength == givenWordLength) {
-                return wordCountEnum;
+                return wordCountEnum.name();
             }
         }
-        return MORE_THAN_NINE_WORD_SEARCH;
+        return MORE_THAN_NINE_WORD_SEARCH.name();
     }
 }

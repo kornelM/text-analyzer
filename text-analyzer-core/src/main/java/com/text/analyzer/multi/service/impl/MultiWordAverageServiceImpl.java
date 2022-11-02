@@ -1,0 +1,52 @@
+package com.text.analyzer.multi.service.impl;
+
+import com.text.analyzer.multi.dto.WordSearchDto;
+import com.text.analyzer.multi.service.MultiWordAverageService;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
+import java.util.Set;
+
+class MultiWordAverageServiceImpl implements MultiWordAverageService {
+
+    @Override
+    public BigDecimal getAverageNumberOfWordsPerSearch(Set<String> wordSearch) {
+        BigDecimal numberOfSearches = BigDecimal.valueOf(wordSearch.size());
+        int totalNumberOfWords = getTotalNumberOfWords(wordSearch);
+        BigDecimal numberOfWords = BigDecimal.valueOf(totalNumberOfWords);
+        return numberOfWords.divide(numberOfSearches, 2, RoundingMode.HALF_EVEN);
+    }
+
+    @Override
+    public BigDecimal getAverageNumberOfCharsPerWord(Set<String> wordSearch) {
+        int totalNumberOfCharsInSearches = wordSearch.stream()
+                .map(String::trim)
+                .map(s -> s.replace(" ", ""))
+                .map(String::length)
+                .mapToInt(Integer::intValue)
+                .sum();
+        BigDecimal numberOfCharsInSearches = BigDecimal.valueOf(totalNumberOfCharsInSearches);
+        int totalNumberOfWords = getTotalNumberOfWords(wordSearch);
+        BigDecimal numberOfWords = BigDecimal.valueOf(totalNumberOfWords);
+        return numberOfCharsInSearches.divide(numberOfWords, 2, RoundingMode.HALF_EVEN);
+    }
+
+    @Override
+    public BigDecimal getAverageNumberOfWordsPerSearch(List<WordSearchDto> wordSearchDtos, List<String> searches) {
+        return BigDecimal.valueOf(wordSearchDtos.stream()
+                .map(WordSearchDto::getAverageNumberOfCharsPerWord)
+                .mapToDouble(BigDecimal::doubleValue)
+                .average()
+                .orElse(-1));
+    }
+
+    private static int getTotalNumberOfWords(Set<String> wordSearch) {
+        return wordSearch.stream()
+                .map(String::trim)
+                .map(s -> s.split(" "))
+                .map(a -> a.length)
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+}
