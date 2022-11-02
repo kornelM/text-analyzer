@@ -4,7 +4,7 @@ import com.text.analyzer.single.service.SingleWordPercentService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Set;
+import java.util.List;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -15,7 +15,7 @@ class SingleWordPercentServiceImpl implements SingleWordPercentService {
     private BigDecimal percentOfDigits;
 
     @Override
-    public BigDecimal getPercentOfLetters(Set<String> singleWordSearch) {
+    public BigDecimal getPercentOfLetters(List<String> singleWordSearch) {
         if (isNull(percentOfLetters)) {
             if (nonNull(percentOfDigits)) {
                 percentOfLetters = BigDecimal.ONE.subtract(percentOfDigits);
@@ -27,7 +27,7 @@ class SingleWordPercentServiceImpl implements SingleWordPercentService {
     }
 
     @Override
-    public BigDecimal getPercentOfDigits(Set<String> singleWordSearch) {
+    public BigDecimal getPercentOfDigits(List<String> singleWordSearch) {
         if (isNull(percentOfDigits)) {
             if (nonNull(percentOfLetters)) {
                 percentOfDigits = BigDecimal.ONE.subtract(percentOfLetters);
@@ -39,12 +39,12 @@ class SingleWordPercentServiceImpl implements SingleWordPercentService {
     }
 
     @Override
-    public BigDecimal percentOfThisQueryInCompareToAll(BigDecimal numberOfAllSingleWordSearches, Set<String> singleWordSearch) {
+    public BigDecimal percentOfThisQueryInCompareToAll(BigDecimal numberOfAllSingleWordSearches, List<String> singleWordSearch) {
         BigDecimal singleWordSize = new BigDecimal(singleWordSearch.size());
         return singleWordSize.divide(numberOfAllSingleWordSearches, 4, RoundingMode.UP);
     }
 
-    private double calculatePercentOfDigits(Set<String> strings) {
+    private double calculatePercentOfDigits(List<String> strings) {
         return strings.stream()
                 .map(s -> {
                     int charsNumber = 0;
@@ -60,7 +60,7 @@ class SingleWordPercentServiceImpl implements SingleWordPercentService {
                 .orElse(1);
     }
 
-    private double calculatePercentOfLetters(Set<String> strings) {
+    private double calculatePercentOfLetters(List<String> strings) {
         return strings.stream()
                 .map(s -> {
                     int charsNumber = 0;

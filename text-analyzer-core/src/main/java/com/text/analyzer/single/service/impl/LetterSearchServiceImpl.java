@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 class LetterSearchServiceImpl implements LetterSearchService {
 
@@ -22,9 +21,9 @@ class LetterSearchServiceImpl implements LetterSearchService {
         this.singleWordDigitsService = new SingleWordPercentServiceImpl();
     }
 
-    private static BigDecimal getNumberOfAllSingleWordSearches(Map<Integer, Set<String>> separatedStringsByLength) {
+    private static BigDecimal getNumberOfAllSingleWordSearches(Map<Integer, List<String>> separatedStringsByLength) {
         return new BigDecimal(separatedStringsByLength.values().stream()
-                .map(Set::size)
+                .map(List::size)
                 .mapToInt(Integer::intValue)
                 .sum()
         );
@@ -32,12 +31,12 @@ class LetterSearchServiceImpl implements LetterSearchService {
 
     @Override
     public List<LetterSearchDto> letterSearchDtos(List<String> searches) {
-        Map<Integer, Set<String>> separatedStringsByLength = searchSeparator.separateSearches(searches);
+        Map<Integer, List<String>> separatedStringsByLength = searchSeparator.separateSearches(searches);
         BigDecimal numberOfAllSingleWordSearches = getNumberOfAllSingleWordSearches(separatedStringsByLength);
 
         List<LetterSearchDto> letterSearches = new ArrayList<>();
         for (Integer specificSearchLength : separatedStringsByLength.keySet()) {
-            Set<String> singleWordSearch = separatedStringsByLength.get(specificSearchLength);
+            List<String> singleWordSearch = separatedStringsByLength.get(specificSearchLength);
 
             String searchName = getSearchName(specificSearchLength);
             BigDecimal percentOfAllOneWordSearches = singleWordDigitsService.percentOfThisQueryInCompareToAll(numberOfAllSingleWordSearches, singleWordSearch);

@@ -1,4 +1,4 @@
-package com.text.analyzer.response;
+package com.text.analyzer.response.pojo;
 
 import lombok.Builder;
 import lombok.ToString;

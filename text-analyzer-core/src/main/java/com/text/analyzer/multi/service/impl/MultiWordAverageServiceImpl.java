@@ -6,12 +6,11 @@ import com.text.analyzer.multi.service.MultiWordAverageService;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-import java.util.Set;
 
 class MultiWordAverageServiceImpl implements MultiWordAverageService {
 
     @Override
-    public BigDecimal getAverageNumberOfWordsPerSearch(Set<String> wordSearch) {
+    public BigDecimal getAverageNumberOfWordsPerSearch(List<String> wordSearch) {
         BigDecimal numberOfSearches = BigDecimal.valueOf(wordSearch.size());
         int totalNumberOfWords = getTotalNumberOfWords(wordSearch);
         BigDecimal numberOfWords = BigDecimal.valueOf(totalNumberOfWords);
@@ -19,7 +18,7 @@ class MultiWordAverageServiceImpl implements MultiWordAverageService {
     }
 
     @Override
-    public BigDecimal getAverageNumberOfCharsPerWord(Set<String> wordSearch) {
+    public BigDecimal getAverageNumberOfCharsPerWord(List<String> wordSearch) {
         int totalNumberOfCharsInSearches = wordSearch.stream()
                 .map(String::trim)
                 .map(s -> s.replace(" ", ""))
@@ -41,7 +40,7 @@ class MultiWordAverageServiceImpl implements MultiWordAverageService {
                 .orElse(-1));
     }
 
-    private static int getTotalNumberOfWords(Set<String> wordSearch) {
+    private static int getTotalNumberOfWords(List<String> wordSearch) {
         return wordSearch.stream()
                 .map(String::trim)
                 .map(s -> s.split(" "))

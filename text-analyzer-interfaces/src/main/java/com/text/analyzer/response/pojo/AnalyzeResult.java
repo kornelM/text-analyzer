@@ -1,5 +1,7 @@
-package com.text.analyzer.response;
+package com.text.analyzer.response.pojo;
 
+import com.text.analyzer.response.MultiWordSearchResult;
+import com.text.analyzer.response.SingleWordSearchResult;
 import lombok.Builder;
 import lombok.ToString;
 

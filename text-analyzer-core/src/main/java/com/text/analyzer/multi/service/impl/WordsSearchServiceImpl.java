@@ -12,7 +12,6 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class WordsSearchServiceImpl implements WordsSearchService {
@@ -27,9 +26,9 @@ public class WordsSearchServiceImpl implements WordsSearchService {
         this.multiWordAverageService = new MultiWordAverageServiceImpl();
     }
 
-    private static BigDecimal getNumberOfAllSearches(Map<Integer, Set<String>> separatedStringsByLength) {
+    private static BigDecimal getNumberOfAllSearches(Map<Integer, List<String>> separatedStringsByLength) {
         return new BigDecimal(separatedStringsByLength.values().stream()
-                .map(Set::size)
+                .map(List::size)
                 .mapToInt(Integer::intValue)
                 .sum()
         );
@@ -37,12 +36,12 @@ public class WordsSearchServiceImpl implements WordsSearchService {
 
     @Override
     public List<WordSearchDto> wordSearchDtos(List<String> searches) {
-        Map<Integer, Set<String>> separatedStringsByNumberOfWords = searchSeparator.separateSearches(searches);
+        Map<Integer, List<String>> separatedStringsByNumberOfWords = searchSeparator.separateSearches(searches);
         BigDecimal numberOfAllMultiWordSearches = getNumberOfAllSearches(separatedStringsByNumberOfWords);
 
         List<WordSearchDto> wordSearches = new ArrayList<>();
         for (Integer specificSearchLength : separatedStringsByNumberOfWords.keySet()) {
-            Set<String> wordSearch = separatedStringsByNumberOfWords.get(specificSearchLength);
+            List<String> wordSearch = separatedStringsByNumberOfWords.get(specificSearchLength);
 
             String searchName = getSearchName(specificSearchLength);
             BigDecimal percentOfAllMultiWordSearches = multiWordPercentService.percentOfThisQueryInCompareToAll(numberOfAllMultiWordSearches, wordSearch);
