@@ -1,19 +1,16 @@
-package com.text.analyzer.response.pojo;
+package com.text.analyzer.search.process.single.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.text.analyzer.common.dto.SearchResultDto;
+import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
-@Data
-@ToString
+@Getter
+@ToString(callSuper = true)
 @SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
-public class LetterSearch extends SearchResult {
+public class LetterSearchDto extends SearchResultDto {
     private BigDecimal percentOfAllOneWordSearches;
     private BigDecimal percentOfLetters;
     private BigDecimal percentOfDigits;

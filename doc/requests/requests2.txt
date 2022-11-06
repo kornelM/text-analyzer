@@ -73,3 +73,16 @@ test2
 0987 654 321
 1 2 3 4 5 6 7 8 9 10 11
 1 2 3 4 5 6 7 8 9 10 11
+; drop
+drop table
+drop table users
+drop table users --
+drop table * --
+select
+select *
+select * from
+select * from users
+select * from users *
+where
+1=1
+1 = 1

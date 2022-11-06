@@ -13,7 +13,7 @@ public enum WordSearchEnum {
     SEVEN_WORDS_SEARCH(7),
     EIGHT_WORDS_SEARCH(8),
     NINE_WORDS_SEARCH(9),
-    MORE_THAN_NINE_WORD_SEARCH(-1);
+    MORE_THAN_NINE_WORD_SEARCH(10);
 
     private final int wordLength;
 
@@ -23,6 +23,10 @@ public enum WordSearchEnum {
 
     public static WordSearchEnum fromString(String givenWordLength) {
         return WordSearchEnum.valueOf(valueOf(givenWordLength.length()));
+    }
+
+    public static WordSearchEnum fromName(String wordSearchEnumString) {
+        return WordSearchEnum.valueOf(wordSearchEnumString);
     }
 
     public static String valueOf(int givenWordLength) {

@@ -13,13 +13,15 @@ import java.util.stream.Stream;
 @UtilityClass
 public class DirectoryUtils {
 
-    public List<String> listFilesUsingFilesList(String dir) throws IOException {
+    public List<String> listFilesInDir(String dir) {
         try (Stream<Path> stream = Files.list(Paths.get(dir))) {
             return stream
                     .filter(file -> !Files.isDirectory(file))
                     .map(Path::toAbsolutePath)
                     .map(Path::toString)
                     .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
