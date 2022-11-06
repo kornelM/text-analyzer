@@ -36,5 +36,10 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.text.analyzer</groupId>
+            <artifactId>text-analyzer-interfaces</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

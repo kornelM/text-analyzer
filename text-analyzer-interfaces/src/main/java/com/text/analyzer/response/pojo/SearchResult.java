@@ -7,5 +7,5 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class SearchResult {
     private String name;
-    private String numberOfSearches;
+    private int numberOfSearches;
 }

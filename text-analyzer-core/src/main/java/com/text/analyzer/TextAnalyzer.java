@@ -1,6 +1,7 @@
 package com.text.analyzer;
 
 import com.google.gson.Gson;
+import com.text.analyzer.common.dto.SearchName;
 import com.text.analyzer.common.dto.SearchResultDto;
 import com.text.analyzer.configuration.ConfigProperty;
 import com.text.analyzer.configuration.PropertiesLoader;
@@ -10,6 +11,9 @@ import com.text.analyzer.multi.dto.MultiWordSearchDto;
 import com.text.analyzer.multi.dto.WordSearchDto;
 import com.text.analyzer.multi.service.impl.MultiWordSearchServiceImpl;
 import com.text.analyzer.pojo.SearchType;
+import com.text.analyzer.response.SingleWordSearchResult;
+import com.text.analyzer.response.pojo.AnalyzeResult;
+import com.text.analyzer.response.pojo.LetterSearch;
 import com.text.analyzer.single.dto.LetterSearchDto;
 import com.text.analyzer.single.dto.SingleWordSearchDto;
 import com.text.analyzer.single.service.impl.SingleWordSearchServiceImpl;
@@ -56,21 +60,53 @@ public class TextAnalyzer {
                 .mapToInt(Integer::intValue)
                 .sum();
 
-        List<LetterSearchDto> collect = singleWordSearchDtos.stream()
+        List<LetterSearchDto> allLetterSearches = singleWordSearchDtos.stream()
                 .flatMap(s -> s.getLetterSearches().stream())
                 .collect(Collectors.toList());
-        Map<String, List<LetterSearchDto>> sorted = collect.stream().collect(Collectors.groupingBy(SearchResultDto::getName));
-        List<LetterSearchDto> collect1 = sorted.values().stream()
+        Map<String, List<LetterSearchDto>> groupedLetterSearches = allLetterSearches.stream().collect(Collectors.groupingBy(SearchResultDto::getName));
+        allLetterSearches = groupedLetterSearches.values().stream()
                 .map(TextAnalyzer::mergeLetters)
                 .collect(Collectors.toList());
 
-        List<WordSearchDto> collectWord = multiWordSearchDtos.stream()
+        List<WordSearchDto> allWordSearches = multiWordSearchDtos.stream()
                 .flatMap(s -> s.getWordSearches().stream())
                 .collect(Collectors.toList());
-        Map<String, List<WordSearchDto>> sortedWord = collectWord.stream().collect(Collectors.groupingBy(SearchResultDto::getName));
-        List<WordSearchDto> collectWord1 = sortedWord.values().stream()
+        Map<String, List<WordSearchDto>> groupedWordSearches = allWordSearches.stream().collect(Collectors.groupingBy(SearchResultDto::getName));
+        allWordSearches = groupedWordSearches.values().stream()
                 .map(TextAnalyzer::mergeWord)
                 .collect(Collectors.toList());
+
+
+        AnalyzeResult analyzeResult = AnalyzeResult.builder()
+                .singleWordSearchResult(
+                        SingleWordSearchResult.builder()
+                                .name(SearchName.SINGLE_WORD_SEARCH.name())
+                                .percentOfAll(BigDecimal.valueOf(totalNumberOfSingleSearches).divide((BigDecimal.valueOf(totalNumberOfSingleSearches).add(BigDecimal.valueOf(totalNumberOfMultiSearches))), 4, RoundingMode.HALF_EVEN))
+                                .numberOfSearches(totalNumberOfSingleSearches)
+                                .letterSearches(
+                                        allLetterSearches.stream()
+                                                .map(d -> LetterSearch.builder()
+                                                        .name(d.getName())
+                                                        .numberOfSearches(d.getNumberOfSearches())
+                                                        .percentOfDigits(d.getPercentOfDigits())
+                                                        .percentOfAllOneWordSearches(d.getPercentOfAllOneWordSearches())
+                                                        .percentOfLetters(d.getPercentOfLetters())
+                                                        .build())
+                                                .collect(Collectors.toList())
+                                )
+                                .theLeastWords(1)
+                                .theMostWordInSearch(1)
+                                .averageNumberOfChars()
+                                .averageNumberOfDigits()
+                                .averageNumberOfWords()
+                                .averageNumberOfCharsPerWord()
+                                .build()
+                )
+//                .multiWordSearchResult()
+//                .totalNumberOfRequests()
+//                .digitSearchResult()
+//                .potentialSqlInjections()
+                .build();
 
         Gson gson = new Gson();
 
