@@ -1,6 +1,5 @@
 package com.text.analyzer.search.process.multi.service.impl;
 
-import com.text.analyzer.common.dto.SearchResultDto;
 import com.text.analyzer.search.process.multi.dto.WordSearchDto;
 import com.text.analyzer.search.process.multi.service.NumberOfWordsService;
 
@@ -41,7 +40,7 @@ class NumberOfWordsServiceImpl implements NumberOfWordsService {
     @Override
     public int getTotalNumberOfSearches(List<WordSearchDto> searches) {
         return searches.stream()
-                .map(SearchResultDto::getNumberOfSearches)
+                .map(WordSearchDto::getNumberOfSearches)
                 .mapToInt(Integer::intValue)
                 .sum();
     }

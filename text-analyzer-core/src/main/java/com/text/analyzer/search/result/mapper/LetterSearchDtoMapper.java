@@ -1,7 +1,7 @@
 package com.text.analyzer.search.result.mapper;
 
-import com.text.analyzer.common.dto.SearchResultDto;
 import com.text.analyzer.common.utils.NumberUtils;
+import com.text.analyzer.response.pojo.LetterNumberEnum;
 import com.text.analyzer.search.process.single.dto.LetterSearchDto;
 import com.text.analyzer.search.process.single.dto.SingleWordSearchDto;
 import lombok.experimental.UtilityClass;
@@ -18,7 +18,7 @@ public class LetterSearchDtoMapper {
         List<LetterSearchDto> allLetterSearches = singleWordSearchDtos.stream()
                 .flatMap(s -> s.getLetterSearches().stream())
                 .collect(Collectors.toList());
-        Map<String, List<LetterSearchDto>> groupedLetterSearches = allLetterSearches.stream().collect(Collectors.groupingBy(SearchResultDto::getName));
+        Map<LetterNumberEnum, List<LetterSearchDto>> groupedLetterSearches = allLetterSearches.stream().collect(Collectors.groupingBy(LetterSearchDto::getName));
         allLetterSearches = groupedLetterSearches.values().stream()
                 .map(LetterSearchDtoMapper::mergeLetters)
                 .collect(Collectors.toList());

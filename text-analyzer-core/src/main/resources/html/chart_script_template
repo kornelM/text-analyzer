@@ -1,0 +1,20 @@
+var xValues = [{listOfArguments}];
+var yValues = [{listOfValues}];
+var barColors = [{listOfColours}];
+
+new Chart("{chartName}", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "{chartTitle}"
+    }
+  }
+});

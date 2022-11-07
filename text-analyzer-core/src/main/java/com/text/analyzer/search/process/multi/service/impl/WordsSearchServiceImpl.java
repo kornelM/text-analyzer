@@ -1,7 +1,7 @@
 package com.text.analyzer.search.process.multi.service.impl;
 
 import com.text.analyzer.common.service.SearchSeparator;
-import com.text.analyzer.pojo.WordSearchEnum;
+import com.text.analyzer.response.pojo.WordSearchEnum;
 import com.text.analyzer.search.process.multi.dto.WordSearchDto;
 import com.text.analyzer.search.process.multi.service.MultiWordAverageService;
 import com.text.analyzer.search.process.multi.service.MultiWordPercentService;
@@ -45,7 +45,7 @@ public class WordsSearchServiceImpl implements WordsSearchService {
         for (Integer specificSearchLength : separatedStringsByNumberOfWords.keySet()) {
             List<String> wordSearch = separatedStringsByNumberOfWords.get(specificSearchLength);
 
-            String searchName = getSearchName(specificSearchLength);
+            WordSearchEnum searchName = getSearchName(specificSearchLength);
             BigDecimal averageNumberOfCharsPerWord = multiWordAverageService.getAverageNumberOfCharsPerWord(wordSearch);
             BigDecimal averageNumberOfWordsPerSearch = multiWordAverageService.getAverageNumberOfWordsPerSearch(wordSearch);
             BigDecimal percentOfAllMultiWordSearches = multiWordPercentService.percentOfThisQueryInCompareToAll(numberOfAllMultiWordSearches, wordSearch);
@@ -92,7 +92,7 @@ public class WordsSearchServiceImpl implements WordsSearchService {
 
         BigDecimal numberOfDtos = BigDecimal.valueOf(collect.size());
         WordSearchDto wordSearchDto = WordSearchDto.builder()
-                .name(WordSearchEnum.MORE_THAN_NINE_WORD_SEARCH.name())
+                .name(WordSearchEnum.MORE_THAN_NINE_WORD_SEARCH)
                 .averageNumberOfCharsPerWord(averageNumberOfCharsPerWord.divide(numberOfDtos, RoundingMode.HALF_EVEN))
                 .averageNumberOfWordsPerSearch(averageNumberOfWordsPerSearch.divide(numberOfDtos, RoundingMode.HALF_EVEN))
                 .percentOfAllMultiWordsSearches(percentOfAllMultiWordsSearches.divide(numberOfDtos, RoundingMode.HALF_EVEN))
@@ -106,7 +106,7 @@ public class WordsSearchServiceImpl implements WordsSearchService {
         return wordSearches;
     }
 
-    private String getSearchName(Integer specificSearchLength) {
+    private WordSearchEnum getSearchName(Integer specificSearchLength) {
         return WordSearchEnum.valueOf(specificSearchLength);
     }
 }

@@ -1,5 +1,6 @@
 package com.text.analyzer.search.process.multi.dto;
 
+import com.text.analyzer.common.dto.WordSearchResultDto;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;

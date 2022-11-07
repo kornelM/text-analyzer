@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,5 +25,13 @@ public class SimpleFileReader implements AnalyzerFileReader {
             System.out.println("Error while reading file under path: " + path + " REASON: " + e.getMessage());
         }
         return list;
+    }
+
+    public String readToString(String path) {
+        try {
+            return Files.readString(Path.of(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

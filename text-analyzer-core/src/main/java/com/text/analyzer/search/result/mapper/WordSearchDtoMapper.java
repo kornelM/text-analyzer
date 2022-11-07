@@ -1,6 +1,6 @@
 package com.text.analyzer.search.result.mapper;
 
-import com.text.analyzer.common.dto.SearchResultDto;
+import com.text.analyzer.response.pojo.WordSearchEnum;
 import com.text.analyzer.search.process.multi.dto.MultiWordSearchDto;
 import com.text.analyzer.search.process.multi.dto.WordSearchDto;
 import lombok.experimental.UtilityClass;
@@ -23,7 +23,7 @@ public class WordSearchDtoMapper {
         List<WordSearchDto> allWordSearches = multiWordSearchDtos.stream()
                 .flatMap(s -> s.getWordSearches().stream())
                 .collect(Collectors.toList());
-        Map<String, List<WordSearchDto>> groupedWordSearches = allWordSearches.stream().collect(Collectors.groupingBy(SearchResultDto::getName));
+        Map<WordSearchEnum, List<WordSearchDto>> groupedWordSearches = allWordSearches.stream().collect(Collectors.groupingBy(WordSearchDto::getName));
         return groupedWordSearches.values().stream()
                 .map(WordSearchDtoMapper::mergeWords)
                 .collect(Collectors.toList());

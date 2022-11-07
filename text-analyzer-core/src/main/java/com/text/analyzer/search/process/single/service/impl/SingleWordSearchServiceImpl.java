@@ -1,21 +1,16 @@
 package com.text.analyzer.search.process.single.service.impl;
 
-import com.text.analyzer.common.dto.SearchName;
-import com.text.analyzer.pojo.LetterNumberEnum;
+import com.text.analyzer.common.service.WordSearchService;
 import com.text.analyzer.pojo.SearchType;
+import com.text.analyzer.response.pojo.SearchName;
 import com.text.analyzer.search.process.single.dto.LetterSearchDto;
 import com.text.analyzer.search.process.single.dto.SingleWordSearchDto;
 import com.text.analyzer.search.process.single.service.LetterSearchService;
 import com.text.analyzer.search.process.single.service.NumberOfWordsService;
 import com.text.analyzer.search.process.single.service.SingleWordAverageService;
-import com.text.analyzer.search.process.single.service.WordSearchService;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 public class SingleWordSearchServiceImpl implements WordSearchService<SingleWordSearchDto> {
 
@@ -43,6 +38,12 @@ public class SingleWordSearchServiceImpl implements WordSearchService<SingleWord
         int theLeastWords = numberOfWordsService.getTheLeastWordsInSearch(searches);
         int numberOfAllSearches = numberOfWordsService.getTotalNumberOfSearches(letterSearchDtos);
         BigDecimal averageNumberOfChars = singleWordAverageService.getAverageNumberOfChars(letterSearchDtos, numberOfAllSearches);
+        BigDecimal averageNumberOfDigits = BigDecimal.valueOf(letterSearchDtos.stream()
+                .map(LetterSearchDto::getPercentOfDigits)
+                .mapToDouble(BigDecimal::doubleValue)
+                .average()
+                .orElse(-1)
+        );
 
         return SingleWordSearchDto.builder()
                 .averageNumberOfWords(averageNumberOfWords)
@@ -50,37 +51,10 @@ public class SingleWordSearchServiceImpl implements WordSearchService<SingleWord
                 .theLeastWords(theLeastWords)
                 .averageNumberOfChars(averageNumberOfChars)
                 .averageNumberOfCharsPerWord(averageNumberOfChars)
-                .name(SearchName.SINGLE_WORD_SEARCH.name())
+                .averageNumberOfDigits(averageNumberOfDigits)
+                .name(SearchName.SINGLE_WORD_SEARCH)
                 .numberOfSearches(numberOfAllSearches)
                 .letterSearches(letterSearchDtos)
                 .build();
-    }
-
-    public Map<LetterNumberEnum, Set<String>> getStringsToEnumNonConcurrent(List<String> strings) {
-        return strings.stream()
-                .collect(Collectors.groupingBy(
-                                LetterNumberEnum::fromString,
-                                TreeMap::new,
-                                Collectors.toSet()
-                        )
-                );
-    }
-
-    public Map<Integer, Set<String>> getStringsToIntConcurrent(List<String> strings) {
-        return strings.stream()
-                .collect(Collectors.groupingByConcurrent(
-                                String::length,
-                                Collectors.toSet()
-                        )
-                );
-    }
-
-    public Map<LetterNumberEnum, Set<String>> getStringsToEnumConcurrent(List<String> strings) {
-        return strings.stream()
-                .collect(Collectors.groupingByConcurrent(
-                                LetterNumberEnum::fromString,
-                                Collectors.toSet()
-                        )
-                );
     }
 }

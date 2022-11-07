@@ -1,13 +1,13 @@
 package com.text.analyzer.search.process.multi.service.impl;
 
-import com.text.analyzer.common.dto.SearchName;
+import com.text.analyzer.common.service.WordSearchService;
 import com.text.analyzer.pojo.SearchType;
+import com.text.analyzer.response.pojo.SearchName;
 import com.text.analyzer.search.process.multi.dto.MultiWordSearchDto;
 import com.text.analyzer.search.process.multi.dto.WordSearchDto;
 import com.text.analyzer.search.process.multi.service.MultiWordAverageService;
 import com.text.analyzer.search.process.multi.service.NumberOfWordsService;
 import com.text.analyzer.search.process.multi.service.WordsSearchService;
-import com.text.analyzer.search.process.single.service.WordSearchService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -40,12 +40,11 @@ public class MultiWordSearchServiceImpl implements WordSearchService<MultiWordSe
         BigDecimal averageNumberOfChars = multiWordAverageService.getAverageNumberOfWordsPerSearch(wordSearchDtos, searches);
 
         return MultiWordSearchDto.builder()
-                .averageNumberOfWords(averageNumberOfWords)
+                .name(SearchName.MULTI_WORD_SEARCH)
+                .averageNumberOfWords(averageNumberOfWords.intValue())
                 .theMostWordInSearch(theMostWordInSearch)
                 .theLeastWords(theLeastWords)
                 .averageNumberOfChars(averageNumberOfChars)
-//                .averageNumberOfCharsPerWord(averageNumberOfChars)
-                .name(SearchName.MULTI_WORD_SEARCH.name())
                 .numberOfSearches(numberOfAllSearches)
                 .wordSearches(wordSearchDtos)
                 .build();

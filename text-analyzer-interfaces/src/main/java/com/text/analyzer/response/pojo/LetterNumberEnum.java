@@ -1,4 +1,4 @@
-package com.text.analyzer.pojo;
+package com.text.analyzer.response.pojo;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -27,18 +27,14 @@ public enum LetterNumberEnum {
         this.wordLength = wordLength;
     }
 
-    public static LetterNumberEnum fromString(String givenWordLength) {
-        return LetterNumberEnum.valueOf(valueOf(givenWordLength.length()));
-    }
-
-    public static String valueOf(int givenWordLength) {
+    public static LetterNumberEnum valueOf(int givenWordLength) {
         List<LetterNumberEnum> values = Arrays.stream(LetterNumberEnum.values()).filter(e -> !e.name().equalsIgnoreCase(TEN_OR_MORE_LETTER_SEARCH.name())).collect(Collectors.toList());
 
         for (LetterNumberEnum wordCountEnum : values) {
             if (wordCountEnum.wordLength == givenWordLength) {
-                return wordCountEnum.name();
+                return wordCountEnum;
             }
         }
-        return TEN_OR_MORE_LETTER_SEARCH.name();
+        return TEN_OR_MORE_LETTER_SEARCH;
     }
 }

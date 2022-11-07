@@ -13,7 +13,10 @@ import java.math.BigDecimal;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WordSearchResult extends SearchResult {
+public class WordSearchResult {
+
+    private SearchName name;
+    private int numberOfSearches;
     private BigDecimal percentOfAll;
     private BigDecimal averageNumberOfWords;
     private int theMostWordInSearch;

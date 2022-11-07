@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MultiWordSearchResult extends WordSearchResult {
+
     private List<WordSearch> wordsSearches;
     private List<String> potentialSqlInjections;
 }

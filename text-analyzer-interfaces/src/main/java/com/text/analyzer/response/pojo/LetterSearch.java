@@ -13,7 +13,9 @@ import java.math.BigDecimal;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LetterSearch extends SearchResult {
+public class LetterSearch {
+    private LetterNumberEnum name;
+    private int numberOfSearches;
     private BigDecimal percentOfAllOneWordSearches;
     private BigDecimal percentOfLetters;
     private BigDecimal percentOfDigits;

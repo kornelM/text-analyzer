@@ -1,4 +1,4 @@
-package com.text.analyzer.common.dto;
+package com.text.analyzer.response.pojo;
 
 public enum SearchName {
     SINGLE_WORD_SEARCH,

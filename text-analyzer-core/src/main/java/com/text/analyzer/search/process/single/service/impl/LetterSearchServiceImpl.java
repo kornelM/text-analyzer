@@ -1,7 +1,7 @@
 package com.text.analyzer.search.process.single.service.impl;
 
 import com.text.analyzer.common.service.SearchSeparator;
-import com.text.analyzer.pojo.LetterNumberEnum;
+import com.text.analyzer.response.pojo.LetterNumberEnum;
 import com.text.analyzer.search.process.single.dto.LetterSearchDto;
 import com.text.analyzer.search.process.single.service.LetterSearchService;
 import com.text.analyzer.search.process.single.service.SingleWordPercentService;
@@ -38,7 +38,7 @@ class LetterSearchServiceImpl implements LetterSearchService {
         for (Integer specificSearchLength : separatedStringsByLength.keySet()) {
             List<String> singleWordSearch = separatedStringsByLength.get(specificSearchLength);
 
-            String searchName = getSearchName(specificSearchLength);
+            LetterNumberEnum searchName = getSearchName(specificSearchLength);
             BigDecimal percentOfAllOneWordSearches = singleWordDigitsService.percentOfThisQueryInCompareToAll(numberOfAllSingleWordSearches, singleWordSearch);
             BigDecimal percentOfDigits = singleWordDigitsService.getPercentOfDigits(singleWordSearch);
             BigDecimal percentOfLetters = singleWordDigitsService.getPercentOfLetters(singleWordSearch);
@@ -57,7 +57,7 @@ class LetterSearchServiceImpl implements LetterSearchService {
         return letterSearches;
     }
 
-    private String getSearchName(Integer specificSearchLength) {
+    private LetterNumberEnum getSearchName(Integer specificSearchLength) {
         return LetterNumberEnum.valueOf(specificSearchLength);
     }
 }

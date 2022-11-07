@@ -16,5 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SingleWordSearchResult extends WordSearchResult {
+
     private List<LetterSearch> letterSearches;
 }

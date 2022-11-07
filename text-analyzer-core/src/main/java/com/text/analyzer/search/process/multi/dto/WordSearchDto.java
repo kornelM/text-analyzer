@@ -1,6 +1,6 @@
 package com.text.analyzer.search.process.multi.dto;
 
-import com.text.analyzer.common.dto.SearchResultDto;
+import com.text.analyzer.response.pojo.WordSearchEnum;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -11,7 +11,9 @@ import java.util.List;
 @Getter
 @ToString(callSuper = true)
 @SuperBuilder
-public class WordSearchDto extends SearchResultDto {
+public class WordSearchDto {
+    private WordSearchEnum name;
+    private int numberOfSearches;
     private BigDecimal averageNumberOfCharsPerWord;
     private BigDecimal averageNumberOfWordsPerSearch;
     private BigDecimal percentOfAllMultiWordsSearches;

@@ -1,6 +1,5 @@
 package com.text.analyzer.response.pojo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -10,8 +9,8 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class SearchResult {
-    private String name;
-    private int numberOfSearches;
+//    private String name;
+//    private int numberOfSearches;
 }

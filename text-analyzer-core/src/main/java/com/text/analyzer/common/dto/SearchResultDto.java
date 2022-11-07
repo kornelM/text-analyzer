@@ -8,6 +8,5 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @SuperBuilder
 public class SearchResultDto {
-    private String name;
-    private int numberOfSearches;
+
 }
