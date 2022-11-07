@@ -16,13 +16,16 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dependency.version.lombok>1.18.24</dependency.version.lombok>
+        <dependency.version.jackson>2.13.4.2</dependency.version.jackson>
+        <dependency.version.jupiter>5.9.1</dependency.version.jupiter>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>${dependency.version.lombok}</version>
         </dependency>
     </dependencies>
 

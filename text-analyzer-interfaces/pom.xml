@@ -10,7 +10,4 @@
 
     <artifactId>text-analyzer-interfaces</artifactId>
     <packaging>jar</packaging>
-
-    <dependencies>
-    </dependencies>
 </project>
