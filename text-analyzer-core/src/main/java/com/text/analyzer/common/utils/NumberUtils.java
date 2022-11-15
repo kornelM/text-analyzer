@@ -15,6 +15,10 @@ public class NumberUtils {
         return divide(dividend, divisor, DEFAULT_DIVIDE_SCALE, ROUNDING_MODE);
     }
 
+    public BigDecimal divide(BigDecimal dividend, BigDecimal divisor, int scale) {
+        return divide(dividend, divisor, scale, ROUNDING_MODE);
+    }
+
     public BigDecimal divide(BigDecimal dividend, BigDecimal divisor, int scale, RoundingMode roundingMode) {
         return dividend.divide(divisor, scale, roundingMode);
     }
@@ -31,7 +35,6 @@ public class NumberUtils {
 
         return dividend.divide(divisorBigDecimal, DEFAULT_DIVIDE_SCALE, ROUNDING_MODE);
     }
-
 
     public BigDecimal divide(int dividend, BigDecimal divisor) {
         BigDecimal dividendBigDecimal = BigDecimal.valueOf(dividend);

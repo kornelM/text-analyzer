@@ -38,12 +38,7 @@ public class SingleWordSearchServiceImpl implements WordSearchService<SingleWord
         int theLeastWords = numberOfWordsService.getTheLeastWordsInSearch(searches);
         int numberOfAllSearches = numberOfWordsService.getTotalNumberOfSearches(letterSearchDtos);
         BigDecimal averageNumberOfChars = singleWordAverageService.getAverageNumberOfChars(letterSearchDtos, numberOfAllSearches);
-        BigDecimal averageNumberOfDigits = BigDecimal.valueOf(letterSearchDtos.stream()
-                .map(LetterSearchDto::getPercentOfDigits)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average()
-                .orElse(-1)
-        );
+        BigDecimal averageNumberOfDigits = singleWordAverageService.getAverageNumberOfDigits(letterSearchDtos, numberOfAllSearches);
 
         return SingleWordSearchDto.builder()
                 .averageNumberOfWords(averageNumberOfWords)
