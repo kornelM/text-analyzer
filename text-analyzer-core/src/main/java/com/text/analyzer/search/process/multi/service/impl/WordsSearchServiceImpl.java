@@ -81,7 +81,9 @@ public class WordsSearchServiceImpl implements WordsSearchService {
         BigDecimal percentOfAllMultiWordsSearches = BigDecimal.ZERO;
         BigDecimal percentOfLetters = BigDecimal.ZERO;
         BigDecimal percentOfDigits = BigDecimal.ZERO;
+        boolean isCreated = false;
         for (WordSearchDto wordSearchDto : collect) {
+            isCreated = true;
             numberOfSearches += wordSearchDto.getNumberOfSearches();
             averageNumberOfCharsPerWord = averageNumberOfCharsPerWord.add(wordSearchDto.getAverageNumberOfCharsPerWord());
             averageNumberOfWordsPerSearch = averageNumberOfWordsPerSearch.add(wordSearchDto.getAverageNumberOfWordsPerSearch());
@@ -90,19 +92,21 @@ public class WordsSearchServiceImpl implements WordsSearchService {
             percentOfDigits = percentOfDigits.add(wordSearchDto.getPercentOfDigits());
         }
 
-        BigDecimal numberOfDtos = BigDecimal.valueOf(collect.size());
-        WordSearchDto wordSearchDto = WordSearchDto.builder()
-                .name(WordSearchEnum.MORE_THAN_NINE_WORD_SEARCH)
-                .averageNumberOfCharsPerWord(averageNumberOfCharsPerWord.divide(numberOfDtos, RoundingMode.HALF_EVEN))
-                .averageNumberOfWordsPerSearch(averageNumberOfWordsPerSearch.divide(numberOfDtos, RoundingMode.HALF_EVEN))
-                .percentOfAllMultiWordsSearches(percentOfAllMultiWordsSearches.divide(numberOfDtos, RoundingMode.HALF_EVEN))
-                .percentOfLetters(percentOfLetters.divide(numberOfDtos, RoundingMode.HALF_EVEN))
-                .percentOfDigits(percentOfDigits.divide(numberOfDtos, RoundingMode.HALF_EVEN))
-                .numberOfSearches(numberOfSearches)
-                .build();
+        if (isCreated) {
+            BigDecimal numberOfDtos = BigDecimal.valueOf(collect.size());
+            WordSearchDto wordSearchDto = WordSearchDto.builder()
+                    .name(WordSearchEnum.MORE_THAN_NINE_WORD_SEARCH)
+                    .averageNumberOfCharsPerWord(!numberOfDtos.equals(BigDecimal.ZERO) ? averageNumberOfCharsPerWord.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
+                    .averageNumberOfWordsPerSearch(!numberOfDtos.equals(BigDecimal.ZERO) ? averageNumberOfWordsPerSearch.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
+                    .percentOfAllMultiWordsSearches(!numberOfDtos.equals(BigDecimal.ZERO) ? percentOfAllMultiWordsSearches.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
+                    .percentOfLetters(!numberOfDtos.equals(BigDecimal.ZERO) ? percentOfLetters.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
+                    .percentOfDigits(!numberOfDtos.equals(BigDecimal.ZERO) ? percentOfDigits.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
+                    .numberOfSearches(numberOfSearches)
+                    .build();
+            wordSearches.removeAll(collect);
+            wordSearches.add(wordSearchDto);
+        }
 
-        wordSearches.removeAll(collect);
-        wordSearches.add(wordSearchDto);
         return wordSearches;
     }
 

@@ -19,32 +19,46 @@ public class LetterSearchDtoMapper {
                 .flatMap(s -> s.getLetterSearches().stream())
                 .collect(Collectors.toList());
         Map<LetterNumberEnum, List<LetterSearchDto>> groupedLetterSearches = allLetterSearches.stream().collect(Collectors.groupingBy(LetterSearchDto::getName));
+
+        int totalNumberOfOneWordSearches = allLetterSearches.stream()
+                .map(LetterSearchDto::getNumberOfSearches)
+                .mapToInt(Integer::intValue)
+                .sum();
+
         allLetterSearches = groupedLetterSearches.values().stream()
-                .map(LetterSearchDtoMapper::mergeLetters)
+                .map(e -> mergeLetters(e, totalNumberOfOneWordSearches))
                 .collect(Collectors.toList());
         return allLetterSearches;
     }
 
-    private static LetterSearchDto mergeLetters(List<LetterSearchDto> list) {
-        int numberOfSearches = 0;
-        BigDecimal percentOfAllOneWordSearches = BigDecimal.ZERO;
+    private static LetterSearchDto mergeLetters(List<LetterSearchDto> list, int totalNumberOfOneWordSearches) {
         BigDecimal percentOfLetters = BigDecimal.ZERO;
         BigDecimal percentOfDigits = BigDecimal.ZERO;
         BigDecimal numberOfDtos = BigDecimal.valueOf(list.size());
+        int totalNumberOfSearches = list.stream().map(LetterSearchDto::getNumberOfSearches).mapToInt(Integer::intValue).sum();
 
         for (LetterSearchDto dto : list) {
-            numberOfSearches += dto.getNumberOfSearches();
-            percentOfAllOneWordSearches = percentOfAllOneWordSearches.add(dto.getPercentOfAllOneWordSearches());
-            percentOfLetters = percentOfLetters.add(dto.getPercentOfLetters());
-            percentOfDigits = percentOfDigits.add(dto.getPercentOfDigits());
+            percentOfLetters = percentOfLetters.add(
+                    NumberUtils.divide(
+                            dto.getPercentOfLetters().multiply(BigDecimal.valueOf(dto.getNumberOfSearches())),
+                            totalNumberOfSearches
+                    )
+            );
+            percentOfDigits = percentOfDigits.add(
+                    NumberUtils.divide(
+                            dto.getPercentOfDigits().multiply(BigDecimal.valueOf(dto.getNumberOfSearches())),
+                            totalNumberOfSearches
+                    )
+            );
         }
+        BigDecimal percentOfAllOneWordSearches = BigDecimal.ZERO.equals(numberOfDtos) ? BigDecimal.ZERO : NumberUtils.divide(totalNumberOfSearches, BigDecimal.valueOf(totalNumberOfOneWordSearches));
 
         return LetterSearchDto.builder()
                 .name(list.get(0).getName())
-                .numberOfSearches(numberOfSearches)
-                .percentOfAllOneWordSearches(NumberUtils.divide(percentOfAllOneWordSearches, numberOfDtos))
-                .percentOfLetters(NumberUtils.divide(percentOfLetters, numberOfDtos))
-                .percentOfDigits(NumberUtils.divide(percentOfDigits, numberOfDtos))
+                .numberOfSearches(totalNumberOfSearches)
+                .percentOfAllOneWordSearches(percentOfAllOneWordSearches)
+                .percentOfLetters(percentOfLetters)
+                .percentOfDigits(percentOfDigits)
                 .build();
     }
 }

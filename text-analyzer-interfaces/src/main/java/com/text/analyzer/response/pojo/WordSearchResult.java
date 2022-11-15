@@ -21,7 +21,7 @@ public class WordSearchResult {
     private BigDecimal averageNumberOfWords;
     private int theMostWordInSearch;
     private int theLeastWords;
-    private BigDecimal averageNumberOfChars;
+//    private BigDecimal averageNumberOfChars;
     private BigDecimal averageNumberOfDigits;
     private BigDecimal averageNumberOfCharsPerWord;
 }

@@ -8,7 +8,7 @@ import java.math.RoundingMode;
 @UtilityClass
 public class NumberUtils {
 
-    public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
+    public static final RoundingMode ROUNDING_MODE = RoundingMode.UP;
 
     public BigDecimal divide(BigDecimal dividend, BigDecimal divisor) {
         return divide(dividend, divisor, 4, ROUNDING_MODE);
@@ -22,19 +22,19 @@ public class NumberUtils {
         BigDecimal dividendBigDecimal = BigDecimal.valueOf(dividend);
         BigDecimal divisorBigDecimal = BigDecimal.valueOf(divisor);
 
-        return dividendBigDecimal.divide(divisorBigDecimal, ROUNDING_MODE);
+        return dividendBigDecimal.divide(divisorBigDecimal, 4, ROUNDING_MODE);
     }
 
     public BigDecimal divide(BigDecimal dividend, int divisor) {
         BigDecimal divisorBigDecimal = BigDecimal.valueOf(divisor);
 
-        return dividend.divide(divisorBigDecimal, ROUNDING_MODE);
+        return dividend.divide(divisorBigDecimal, 4, ROUNDING_MODE);
     }
 
 
     public BigDecimal divide(int dividend, BigDecimal divisor) {
         BigDecimal dividendBigDecimal = BigDecimal.valueOf(dividend);
 
-        return dividendBigDecimal.divide(divisor, ROUNDING_MODE);
+        return dividendBigDecimal.divide(divisor, 4, ROUNDING_MODE);
     }
 }

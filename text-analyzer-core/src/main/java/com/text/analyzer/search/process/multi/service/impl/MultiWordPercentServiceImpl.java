@@ -26,6 +26,7 @@ class MultiWordPercentServiceImpl implements MultiWordPercentService {
 
     private double calculatePercentOfDigits(List<String> strings) {
         return strings.stream()
+                .map(s -> s.replaceAll("\\s", ""))
                 .map(s -> {
                     int charsNumber = 0;
                     for (char c : s.toCharArray()) {
@@ -42,6 +43,7 @@ class MultiWordPercentServiceImpl implements MultiWordPercentService {
 
     private double calculatePercentOfLetters(List<String> strings) {
         return strings.stream()
+                .map(s -> s.replaceAll("\\s", ""))
                 .map(s -> {
                     int charsNumber = 0;
                     for (char c : s.toCharArray()) {

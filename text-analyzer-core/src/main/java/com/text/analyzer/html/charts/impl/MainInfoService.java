@@ -38,7 +38,7 @@ public class MainInfoService extends AbstractChartService implements ChartServic
         BigDecimal averageNumberOfWords = analyzeResult.getAverageNumberOfWords();
         int theMostWordInSearch = analyzeResult.getTheMostWordInSearch();
         int theLeastWords = analyzeResult.getTheLeastWords();
-        BigDecimal averageNumberOfChars = analyzeResult.getAverageNumberOfChars();
+//        BigDecimal averageNumberOfChars = analyzeResult.getAverageNumberOfChars();
         BigDecimal averageNumberOfCharsPerWord = analyzeResult.getAverageNumberOfCharsPerWord();
         List<LetterSearch> letterSearches = analyzeResult.getLetterSearches();
         letterSearches.sort(Comparator.comparingInt(letterSearch -> letterSearch.getName().getWordLength()));
@@ -54,7 +54,7 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                                 .with(TagCreator.p("averageNumberOfWords: " + averageNumberOfWords))
                                 .with(TagCreator.p("theMostWordInSearch: " + theMostWordInSearch))
                                 .with(TagCreator.p("theLeastWords: " + theLeastWords))
-                                .with(TagCreator.p("averageNumberOfChars: " + averageNumberOfChars))
+//                                .with(TagCreator.p("averageNumberOfChars: " + averageNumberOfChars))
                                 .with(TagCreator.p("averageNumberOfCharsPerWord: " + averageNumberOfCharsPerWord))
                         )
         );
@@ -81,7 +81,7 @@ public class MainInfoService extends AbstractChartService implements ChartServic
         BigDecimal averageNumberOfWords = multiWordSearchResult.getAverageNumberOfWords();
         int theMostWordInSearch = multiWordSearchResult.getTheMostWordInSearch();
         int theLeastWords = multiWordSearchResult.getTheLeastWords();
-        BigDecimal averageNumberOfChars = multiWordSearchResult.getAverageNumberOfChars();
+//        BigDecimal averageNumberOfChars = multiWordSearchResult.getAverageNumberOfChars();
         BigDecimal averageNumberOfCharsPerWord = multiWordSearchResult.getAverageNumberOfCharsPerWord();
         List<WordSearch> wordsSearches = multiWordSearchResult.getWordsSearches();
         wordsSearches.sort(Comparator.comparingInt(wordSearch -> wordSearch.getName().getWordLength()));
@@ -97,7 +97,7 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                                 .with(TagCreator.p("averageNumberOfWords: " + averageNumberOfWords))
                                 .with(TagCreator.p("theMostWordInSearch: " + theMostWordInSearch))
                                 .with(TagCreator.p("theLeastWords: " + theLeastWords))
-                                .with(TagCreator.p("averageNumberOfChars: " + averageNumberOfChars))
+//                                .with(TagCreator.p("averageNumberOfChars: " + averageNumberOfChars))
                                 .with(TagCreator.p("averageNumberOfCharsPerWord: " + averageNumberOfCharsPerWord))
                         )
         );

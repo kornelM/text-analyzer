@@ -49,7 +49,7 @@ public class SingleWordSearchServiceImpl implements WordSearchService<SingleWord
                 .averageNumberOfWords(averageNumberOfWords)
                 .theMostWordInSearch(theMostWordInSearch)
                 .theLeastWords(theLeastWords)
-                .averageNumberOfChars(averageNumberOfChars)
+//                .averageNumberOfChars(averageNumberOfChars)
                 .averageNumberOfCharsPerWord(averageNumberOfChars)
                 .averageNumberOfDigits(averageNumberOfDigits)
                 .name(SearchName.SINGLE_WORD_SEARCH)

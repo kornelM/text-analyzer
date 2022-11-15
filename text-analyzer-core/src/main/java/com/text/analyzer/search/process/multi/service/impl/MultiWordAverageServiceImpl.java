@@ -28,7 +28,7 @@ class MultiWordAverageServiceImpl implements MultiWordAverageService {
         BigDecimal numberOfCharsInSearches = BigDecimal.valueOf(totalNumberOfCharsInSearches);
         int totalNumberOfWords = getTotalNumberOfWords(wordSearch);
         BigDecimal numberOfWords = BigDecimal.valueOf(totalNumberOfWords);
-        return numberOfCharsInSearches.divide(numberOfWords, 2, RoundingMode.HALF_EVEN);
+        return numberOfCharsInSearches.divide(numberOfWords, 4, RoundingMode.HALF_EVEN);
     }
 
     @Override

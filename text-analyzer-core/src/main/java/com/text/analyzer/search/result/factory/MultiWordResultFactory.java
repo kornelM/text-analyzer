@@ -11,6 +11,7 @@ import com.text.analyzer.search.process.multi.dto.WordSearchDto;
 import com.text.analyzer.search.process.single.dto.SingleWordSearchDto;
 import com.text.analyzer.search.result.mapper.WordSearchDtoMapper;
 import com.text.analyzer.search.result.mapper.WordSearchMapper;
+import com.text.analyzer.search.result.service.MultiWordResultCalculator;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -21,29 +22,43 @@ import java.util.stream.Collectors;
 
 public class MultiWordResultFactory {
 
+    private final MultiWordResultCalculator multiWordResultCalculator;
+
+    public MultiWordResultFactory() {
+        this.multiWordResultCalculator = new MultiWordResultCalculator();
+    }
+
     public MultiWordSearchResult getMultiWordSearchResult(int totalNumberOfSingleSearches, int totalNumberOfMultiSearches, List<SingleWordSearchDto> singleWordSearchDtos, List<MultiWordSearchDto> multiWordSearchDtos) {
         BigDecimal percentOfAll = getPercentOfAll(totalNumberOfSingleSearches, totalNumberOfMultiSearches);
         List<WordSearchDto> allWordSearches = WordSearchDtoMapper.mapToWordSearchDtos(multiWordSearchDtos);
         List<WordSearch> wordsSearches = WordSearchMapper.mapToWordSearches(allWordSearches);
         Integer leastWords = getLeastWords(allWordSearches);
         Integer lengthOfLongestSearchedSentence = getLengthOfLongestSearchedSentence(allWordSearches);
-        BigDecimal averageNumberOfChars = BigDecimal.valueOf(multiWordSearchDtos.stream().map(MultiWordSearchDto::getAverageNumberOfChars).mapToDouble(BigDecimal::doubleValue).average().orElse(-1));
-        BigDecimal averageNumberOfWords = BigDecimal.valueOf(multiWordSearchDtos.stream().map(MultiWordSearchDto::getAverageNumberOfWords).mapToInt(Integer::intValue).average().orElse(-1));
-        BigDecimal averageNumberOfCharsPerWord = BigDecimal.valueOf(singleWordSearchDtos.stream().map(WordSearchResultDto::getAverageNumberOfCharsPerWord).mapToDouble(BigDecimal::doubleValue).average().orElse(-1));
+
+        int totalNumberOfSearches = getTotalNumberOfSearches(multiWordSearchDtos);
+        BigDecimal averageNumberOfWords = multiWordResultCalculator.averageNumberOfWords(multiWordSearchDtos, totalNumberOfSearches);
+        BigDecimal averageNumberOfCharsPerWord = multiWordResultCalculator.averageNumberOfCharsPerWord(multiWordSearchDtos, totalNumberOfSearches);
+
         List<String> potentialSqlInjections = getPotentialSqlInjections(allWordSearches);
 
         return MultiWordSearchResult.builder()
                 .name(SearchName.MULTI_WORD_SEARCH)
                 .percentOfAll(percentOfAll)
-                .numberOfSearches(totalNumberOfSingleSearches)
+                .numberOfSearches(totalNumberOfMultiSearches)
                 .wordsSearches(wordsSearches)
                 .theLeastWords(leastWords)
                 .theMostWordInSearch(lengthOfLongestSearchedSentence)
-                .averageNumberOfChars(averageNumberOfChars)
                 .averageNumberOfWords(averageNumberOfWords)
                 .averageNumberOfCharsPerWord(averageNumberOfCharsPerWord)
                 .potentialSqlInjections(potentialSqlInjections)
                 .build();
+    }
+
+    private static int getTotalNumberOfSearches(List<MultiWordSearchDto> multiWordSearchDtos) {
+        return multiWordSearchDtos.stream()
+                .map(WordSearchResultDto::getNumberOfSearches)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     private BigDecimal getPercentOfAll(int totalNumberOfSingleSearches, int totalNumberOfMultiSearches) {

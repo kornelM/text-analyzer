@@ -19,5 +19,5 @@ public class WordSearchResultDto {
     private int theLeastWords;
     private BigDecimal averageNumberOfDigits;
     //    private BigDecimal averageNumberOfCharsPerWord;
-    private BigDecimal averageNumberOfChars;
+//    private BigDecimal averageNumberOfChars;
 }

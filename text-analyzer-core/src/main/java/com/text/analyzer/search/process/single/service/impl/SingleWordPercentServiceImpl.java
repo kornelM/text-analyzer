@@ -6,36 +6,16 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-
 class SingleWordPercentServiceImpl implements SingleWordPercentService {
-
-    private BigDecimal percentOfLetters;
-    private BigDecimal percentOfDigits;
 
     @Override
     public BigDecimal getPercentOfLetters(List<String> singleWordSearch) {
-        if (isNull(percentOfLetters)) {
-            if (nonNull(percentOfDigits)) {
-                percentOfLetters = BigDecimal.ONE.subtract(percentOfDigits);
-            } else {
-                percentOfLetters = BigDecimal.valueOf(calculatePercentOfLetters(singleWordSearch));
-            }
-        }
-        return percentOfLetters;
+        return BigDecimal.valueOf(calculatePercentOfLetters(singleWordSearch));
     }
 
     @Override
     public BigDecimal getPercentOfDigits(List<String> singleWordSearch) {
-        if (isNull(percentOfDigits)) {
-            if (nonNull(percentOfLetters)) {
-                percentOfDigits = BigDecimal.ONE.subtract(percentOfLetters);
-            } else {
-                percentOfDigits = BigDecimal.valueOf(calculatePercentOfDigits(singleWordSearch));
-            }
-        }
-        return percentOfDigits;
+        return BigDecimal.valueOf(calculatePercentOfDigits(singleWordSearch));
     }
 
     @Override

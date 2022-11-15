@@ -16,7 +16,7 @@ public class TextAnalyzer {
         String html = htmlCreator.createHtml(analyzeResult);
 
         ObjectMapper objectMapper = new ObjectMapper();
-//        System.out.println(objectMapper.writeValueAsString(analyzeResult));
+        System.out.println(objectMapper.writeValueAsString(analyzeResult));
 //        System.out.println(html);
     }
 }
