@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class WordSeparatorTest {
 
     @Test
-    public void test() {
+    public void shouldReturnMapOfSplitSearchesBasedOnWordsNumber() {
         //given
         String single = "single ";
         String singleTwo = " single_two";
