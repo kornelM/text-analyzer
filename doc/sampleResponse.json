@@ -1,72 +1,163 @@
 {
-  "ilośćZapytań": 100,
-  "najczęściejSzukaneSłowa100": [
-    "aba",
-    "fasdfsadf",
-    "vsdvsdv"
-  ],
-  "potencjalnePróbySqlInjection": [
-    {
-      "fraza": "select"
-    }
-  ],
-  "oneWordSearchResult": {
-    "nazwa": "ONE_WORD_SEARCH",
-    "ilośćWyszukiwań": "3",
-    "procentZOgółu": "0.3",
-    "ilośćZnakówWNajkrótszymSłowie": "1",
-    "ilośćZnakówWNajdłuższymSłowie": "11",
-    "średniaIlośćZnakówPerSłowo": "5",
-    "średniaIlośćZnaków": "4",
-    "średniaIlośćCyfr": "4",
-    "wyszukiwania": [
+  "totalNumberOfRequests": 124,
+  "mostSearchPhrases": null,
+  "singleWordSearchResult": {
+    "name": "SINGLE_WORD_SEARCH",
+    "numberOfSearches": 29,
+    "percentOfAll": 23.39,
+    "averageNumberOfWords": 1.00,
+    "theMostWordInSearch": 1,
+    "theLeastWords": 1,
+    "averageNumberOfDigits": 0.22,
+    "averageNumberOfCharsPerWord": 6.04,
+    "letterSearches": [
       {
-        "nazwa": "ONE_LETTER",
-        "ilośćWyszukiwań": "31",
-        "procentZeWszystkichWyszukiwańJednosłownych": "0.9",
-        "procentowyUdziałLiterWTychZapytaniach": "0.9",
-        "procentowyUdziałCyfrWTychZapytaniach": "0.1"
+        "name": "THREE_LETTER_SEARCH",
+        "numberOfSearches": 4,
+        "percentOfAllOneWordSearches": 13.79,
+        "percentOfLetters": 83.33,
+        "percentOfDigits": 16.67
       },
       {
-        "nazwa": "TWO_LETTERS",
-        "ilośćWyszukiwań": "11",
-        "procentZeWszystkichWyszukiwańJednosłownych": "0.9",
-        "procentowyUdziałLiterWTychZapytaniach": "0.9",
-        "procentowyUdziałCyfrWTychZapytaniach": "0.1"
+        "name": "FOUR_LETTER_SEARCH",
+        "numberOfSearches": 3,
+        "percentOfAllOneWordSearches": 10.34,
+        "percentOfLetters": 100.00,
+        "percentOfDigits": 0.00
+      },
+      {
+        "name": "FIVE_LETTER_SEARCH",
+        "numberOfSearches": 7,
+        "percentOfAllOneWordSearches": 24.14,
+        "percentOfLetters": 82.86,
+        "percentOfDigits": 17.14
+      },
+      {
+        "name": "SIX_LETTER_SEARCH",
+        "numberOfSearches": 7,
+        "percentOfAllOneWordSearches": 24.14,
+        "percentOfLetters": 100.00,
+        "percentOfDigits": 0.00
+      },
+      {
+        "name": "EIGHT_LETTER_SEARCH",
+        "numberOfSearches": 3,
+        "percentOfAllOneWordSearches": 10.34,
+        "percentOfLetters": 100.00,
+        "percentOfDigits": 0.00
+      },
+      {
+        "name": "TEN_OR_MORE_LETTER_SEARCH",
+        "numberOfSearches": 5,
+        "percentOfAllOneWordSearches": 17.24,
+        "percentOfLetters": 0.00,
+        "percentOfDigits": 100.00
       }
     ]
   },
   "multiWordSearchResult": {
-    "nazwa": "MULTI_WORDS_SEARCH",
-    "ilośćWyszukiwań": "3",
-    "procentZOgółu": "0.3",
-    "średniaIlośćSłów": "0.3",
-    "największaIlośćSłów": "2",
-    "najmniejszaIlośćSłów": "10",
-    "średniaIlośćZnakówPerSłowo": "5",
-    "średniaIlośćZnaków": "4",
-    "średniaIlośćCyfr": "4",
-    "wyszukiwania": [
+    "name": "MULTI_WORD_SEARCH",
+    "numberOfSearches": 95,
+    "percentOfAll": 76.61,
+    "averageNumberOfWords": 4.52,
+    "theMostWordInSearch": 10,
+    "theLeastWords": 2,
+    "averageNumberOfDigits": null,
+    "averageNumberOfCharsPerWord": 4.62,
+    "wordsSearches": [
       {
-        "nazwa": "TWO_WORDS",
-        "ilośćWyszukiwań": "31",
-        "procentZeWszystkichWyszukiwańWielosłownych": "0.9",
-        "procentowyUdziałLiterWTychZapytaniach": "0.9",
-        "procentowyUdziałCyfrWTychZapytaniach": "0.1",
-        "średniaIlośćZnakówPerSłowo": "5",
-        "średniaIlośćZnaków": "4",
-        "średniaIlośćCyfr": "4"
+        "name": "TWO_WORDS_SEARCH",
+        "numberOfSearches": 24,
+        "percentOfAllMultiWordSearches": 25.26,
+        "percentOfLettersPerSearch": 100.00,
+        "percentOfDigitsPerSearch": 0.00,
+        "averageNumberOfCharsPerWord": 6.26,
+        "averageNumberOfWords": 2.01
       },
       {
-        "nazwa": "THREE_WORDS",
-        "ilośćWyszukiwań": "45",
-        "procentZeWszystkichWyszukiwańWielosłownych": "0.9",
-        "procentowyUdziałLiterWTychZapytaniach": "0.9",
-        "procentowyUdziałCyfrWTychZapytaniach": "0.1",
-        "średniaIlośćZnakówPerSłowo": "5",
-        "średniaIlośćZnaków": "4",
-        "średniaIlośćCyfr": "4"
+        "name": "THREE_WORDS_SEARCH",
+        "numberOfSearches": 30,
+        "percentOfAllMultiWordSearches": 31.58,
+        "percentOfLettersPerSearch": 77.78,
+        "percentOfDigitsPerSearch": 22.22,
+        "averageNumberOfCharsPerWord": 4.18,
+        "averageNumberOfWords": 3.00
+      },
+      {
+        "name": "FOUR_WORDS_SEARCH",
+        "numberOfSearches": 13,
+        "percentOfAllMultiWordSearches": 13.68,
+        "percentOfLettersPerSearch": 100.00,
+        "percentOfDigitsPerSearch": 0.00,
+        "averageNumberOfCharsPerWord": 4.60,
+        "averageNumberOfWords": 4.01
+      },
+      {
+        "name": "FIVE_WORDS_SEARCH",
+        "numberOfSearches": 4,
+        "percentOfAllMultiWordSearches": 4.21,
+        "percentOfLettersPerSearch": 100.00,
+        "percentOfDigitsPerSearch": 0.00,
+        "averageNumberOfCharsPerWord": 3.71,
+        "averageNumberOfWords": 5.00
+      },
+      {
+        "name": "SIX_WORDS_SEARCH",
+        "numberOfSearches": 3,
+        "percentOfAllMultiWordSearches": 3.16,
+        "percentOfLettersPerSearch": 100.00,
+        "percentOfDigitsPerSearch": 0.00,
+        "averageNumberOfCharsPerWord": 3.67,
+        "averageNumberOfWords": 6.00
+      },
+      {
+        "name": "SEVEN_WORDS_SEARCH",
+        "numberOfSearches": 3,
+        "percentOfAllMultiWordSearches": 3.16,
+        "percentOfLettersPerSearch": 100.00,
+        "percentOfDigitsPerSearch": 0.00,
+        "averageNumberOfCharsPerWord": 3.86,
+        "averageNumberOfWords": 7.01
+      },
+      {
+        "name": "EIGHT_WORDS_SEARCH",
+        "numberOfSearches": 3,
+        "percentOfAllMultiWordSearches": 3.16,
+        "percentOfLettersPerSearch": 100.00,
+        "percentOfDigitsPerSearch": 0.00,
+        "averageNumberOfCharsPerWord": 4.01,
+        "averageNumberOfWords": 8.01
+      },
+      {
+        "name": "NINE_WORDS_SEARCH",
+        "numberOfSearches": 3,
+        "percentOfAllMultiWordSearches": 3.16,
+        "percentOfLettersPerSearch": 100.00,
+        "percentOfDigitsPerSearch": 0.00,
+        "averageNumberOfCharsPerWord": 4.01,
+        "averageNumberOfWords": 9.00
+      },
+      {
+        "name": "MORE_THAN_NINE_WORD_SEARCH",
+        "numberOfSearches": 12,
+        "percentOfAllMultiWordSearches": 12.63,
+        "percentOfLettersPerSearch": 71.23,
+        "percentOfDigitsPerSearch": 28.77,
+        "averageNumberOfCharsPerWord": 3.50,
+        "averageNumberOfWords": 10.76
       }
+    ],
+    "potentialSqlInjections": [
+      "select * from",
+      "drop table users",
+      "1 = 1",
+      "drop table users --",
+      "select * from users",
+      "drop table * --",
+      "select * from users *",
+      "select *",
+      "; drop",
+      "drop table"
     ]
   },
   "digitSearchResult": {
