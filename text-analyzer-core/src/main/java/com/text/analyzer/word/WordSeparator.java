@@ -11,6 +11,8 @@ import static java.util.Objects.isNull;
 
 public class WordSeparator {
 
+    public static final String STRING_SPACE = " ";
+
     public static Map<SearchType, List<String>> separate(List<String> searches) {
         Map<SearchType, List<String>> separatedSearches = new HashMap<>();
 
@@ -19,7 +21,7 @@ public class WordSeparator {
 
         for (String search : searches) {
             String trimmedSearch = search.trim();
-            if (trimmedSearch.split(" ").length > 1) {
+            if (trimmedSearch.split(STRING_SPACE).length > 1) {
                 if (isNull(separatedSearches.get(SearchType.MULTI))) {
                     multi.add(trimmedSearch);
                     separatedSearches.put(SearchType.MULTI, multi);

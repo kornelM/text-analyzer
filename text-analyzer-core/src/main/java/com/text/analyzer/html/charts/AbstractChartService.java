@@ -2,6 +2,7 @@ package com.text.analyzer.html.charts;
 
 import com.text.analyzer.html.HtmlPlaceholder;
 import com.text.analyzer.html.ScriptService;
+import com.text.analyzer.html.color.Color;
 import j2html.TagCreator;
 import j2html.tags.DomContent;
 import j2html.tags.specialized.CanvasTag;
@@ -28,7 +29,8 @@ public abstract class AbstractChartService {
 
     protected abstract String getChartTitle();
 
-    protected List<DomContent> getDomContents(List<String> arguments, List<String> values, List<String> colors) {
+    protected List<DomContent> getDomContents(List<String> arguments, List<String> values) {
+        List<String> colors = Color.getNumberOfColors(values.size());
         String argumentsAsString = convertListToString(arguments);
         String valuesAsString = convertListToString(values);
         String colorsAsString = convertListToString(colors);

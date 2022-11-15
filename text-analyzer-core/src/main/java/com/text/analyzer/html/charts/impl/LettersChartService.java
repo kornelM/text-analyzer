@@ -3,7 +3,6 @@ package com.text.analyzer.html.charts.impl;
 import com.text.analyzer.html.ChartName;
 import com.text.analyzer.html.charts.AbstractChartService;
 import com.text.analyzer.html.charts.ChartService;
-import com.text.analyzer.html.color.Color;
 import com.text.analyzer.response.pojo.AnalyzeResult;
 import com.text.analyzer.response.pojo.LetterSearch;
 import j2html.tags.DomContent;
@@ -26,9 +25,8 @@ public class LettersChartService extends AbstractChartService implements ChartSe
             arguments.add(letterSearch.getName().name());
             values.add(letterSearch.getPercentOfAllOneWordSearches().toString());
         }
-        List<String> colors = Color.getNumberOfColors(values.size());
 
-        return getDomContents(arguments, values, colors);
+        return getDomContents(arguments, values);
     }
 
     @Override
