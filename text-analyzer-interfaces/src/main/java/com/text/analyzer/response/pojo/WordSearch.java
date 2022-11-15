@@ -23,8 +23,6 @@ public class WordSearch {
     private BigDecimal percentOfDigitsPerSearch;
     private BigDecimal averageNumberOfCharsPerWord;
     private BigDecimal averageNumberOfWords;
-    private int averageNumberOfChars;
-    private int averageNumberOfDigits;
 
     public BigDecimal getPercentOfAllMultiWordSearches() {
         return Standarizer.standarizePercentValue(percentOfAllMultiWordSearches);

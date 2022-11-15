@@ -20,5 +20,4 @@ public class DigitSearchResult {
     private int theMostWords;
     private int theLeastWords;
     private int averageNumberOfCharsPerWord;
-    private int averageNumberOfChars;
 }

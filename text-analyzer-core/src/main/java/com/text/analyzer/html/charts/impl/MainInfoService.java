@@ -110,8 +110,6 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                                 .with(getPercentParagraph("percentOfDigitsPerSearch", e.getPercentOfDigitsPerSearch()))
                                 .with(getParagraph("averageNumberOfCharsPerWord", e.getAverageNumberOfCharsPerWord()))
                                 .with(getParagraph("averageNumberOfWords", e.getAverageNumberOfWords()))
-                                .with(getParagraph("averageNumberOfChars", e.getAverageNumberOfChars()))
-                                .with(getParagraph("averageNumberOfDigits", e.getAverageNumberOfDigits()))
                         )
                         .collect(Collectors.toList())
         );
