@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class LetterSearchDtoMapper {
 
+    private static final int FIRST_ELEMENT_INDEX = 0;
+
     public static List<LetterSearchDto> mapToLetterSearchDtos(List<SingleWordSearchDto> singleWordSearchDtos) {
         List<LetterSearchDto> allLetterSearches = singleWordSearchDtos.stream()
                 .flatMap(s -> s.getLetterSearches().stream())
@@ -54,7 +56,7 @@ public class LetterSearchDtoMapper {
         BigDecimal percentOfAllOneWordSearches = BigDecimal.ZERO.equals(numberOfDtos) ? BigDecimal.ZERO : NumberUtils.divide(totalNumberOfSearches, BigDecimal.valueOf(totalNumberOfOneWordSearches));
 
         return LetterSearchDto.builder()
-                .name(list.get(0).getName())
+                .name(list.get(FIRST_ELEMENT_INDEX).getName())
                 .numberOfSearches(totalNumberOfSearches)
                 .percentOfAllOneWordSearches(percentOfAllOneWordSearches)
                 .percentOfLetters(percentOfLetters)

@@ -1,6 +1,7 @@
 package com.text.analyzer.pojo;
 
 public enum WordCountEnum {
+
     NUMBER_OF_ONE_WORD_SEARCHES(1),
     NUMBER_OF_TWO_WORDS_SEARCHES(2),
     NUMBER_OF_THREE_WORDS_SEARCHES(3),

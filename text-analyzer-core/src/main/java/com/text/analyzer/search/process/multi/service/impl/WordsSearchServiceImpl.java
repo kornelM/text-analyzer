@@ -1,6 +1,7 @@
 package com.text.analyzer.search.process.multi.service.impl;
 
 import com.text.analyzer.common.service.SearchSeparator;
+import com.text.analyzer.common.utils.NumberUtils;
 import com.text.analyzer.response.pojo.WordSearchEnum;
 import com.text.analyzer.search.process.multi.dto.WordSearchDto;
 import com.text.analyzer.search.process.multi.service.MultiWordAverageService;
@@ -8,7 +9,6 @@ import com.text.analyzer.search.process.multi.service.MultiWordPercentService;
 import com.text.analyzer.search.process.multi.service.WordsSearchService;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -75,33 +75,57 @@ public class WordsSearchServiceImpl implements WordsSearchService {
         List<WordSearchDto> collect = wordSearches.stream()
                 .filter(e -> WordSearchEnum.NINE_WORDS_SEARCH.getWordLength() < e.getAverageNumberOfWordsPerSearch().intValue())
                 .collect(Collectors.toList());
-        int numberOfSearches = 0;
         BigDecimal averageNumberOfCharsPerWord = BigDecimal.ZERO;
         BigDecimal averageNumberOfWordsPerSearch = BigDecimal.ZERO;
         BigDecimal percentOfAllMultiWordsSearches = BigDecimal.ZERO;
         BigDecimal percentOfLetters = BigDecimal.ZERO;
         BigDecimal percentOfDigits = BigDecimal.ZERO;
         boolean isCreated = false;
+        int totalNumberOfSearches = collect.stream().map(WordSearchDto::getNumberOfSearches).mapToInt(Integer::intValue).sum();
+
         for (WordSearchDto wordSearchDto : collect) {
             isCreated = true;
-            numberOfSearches += wordSearchDto.getNumberOfSearches();
-            averageNumberOfCharsPerWord = averageNumberOfCharsPerWord.add(wordSearchDto.getAverageNumberOfCharsPerWord());
-            averageNumberOfWordsPerSearch = averageNumberOfWordsPerSearch.add(wordSearchDto.getAverageNumberOfWordsPerSearch());
-            percentOfAllMultiWordsSearches = percentOfAllMultiWordsSearches.add(wordSearchDto.getPercentOfAllMultiWordsSearches());
-            percentOfLetters = percentOfLetters.add(wordSearchDto.getPercentOfLetters());
-            percentOfDigits = percentOfDigits.add(wordSearchDto.getPercentOfDigits());
+            averageNumberOfCharsPerWord = averageNumberOfCharsPerWord.add(
+                    NumberUtils.divide(
+                            wordSearchDto.getAverageNumberOfCharsPerWord().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
+                            totalNumberOfSearches
+                    )
+            );
+            averageNumberOfWordsPerSearch = averageNumberOfWordsPerSearch.add(
+                    NumberUtils.divide(
+                            wordSearchDto.getAverageNumberOfWordsPerSearch().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
+                            totalNumberOfSearches
+                    )
+            );
+            percentOfAllMultiWordsSearches = percentOfAllMultiWordsSearches.add(
+                    NumberUtils.divide(
+                            wordSearchDto.getPercentOfAllMultiWordsSearches().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
+                            totalNumberOfSearches
+                    )
+            );
+            percentOfLetters = percentOfLetters.add(
+                    NumberUtils.divide(
+                            wordSearchDto.getPercentOfLetters().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
+                            totalNumberOfSearches
+                    )
+            );
+            percentOfDigits = percentOfDigits.add(
+                    NumberUtils.divide(
+                            wordSearchDto.getPercentOfDigits().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
+                            totalNumberOfSearches
+                    )
+            );
         }
 
         if (isCreated) {
-            BigDecimal numberOfDtos = BigDecimal.valueOf(collect.size());
             WordSearchDto wordSearchDto = WordSearchDto.builder()
                     .name(WordSearchEnum.MORE_THAN_NINE_WORD_SEARCH)
-                    .averageNumberOfCharsPerWord(!numberOfDtos.equals(BigDecimal.ZERO) ? averageNumberOfCharsPerWord.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
-                    .averageNumberOfWordsPerSearch(!numberOfDtos.equals(BigDecimal.ZERO) ? averageNumberOfWordsPerSearch.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
-                    .percentOfAllMultiWordsSearches(!numberOfDtos.equals(BigDecimal.ZERO) ? percentOfAllMultiWordsSearches.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
-                    .percentOfLetters(!numberOfDtos.equals(BigDecimal.ZERO) ? percentOfLetters.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
-                    .percentOfDigits(!numberOfDtos.equals(BigDecimal.ZERO) ? percentOfDigits.divide(numberOfDtos, RoundingMode.HALF_EVEN) : BigDecimal.ZERO)
-                    .numberOfSearches(numberOfSearches)
+                    .averageNumberOfCharsPerWord(averageNumberOfCharsPerWord)
+                    .averageNumberOfWordsPerSearch(averageNumberOfWordsPerSearch)
+                    .percentOfAllMultiWordsSearches(percentOfAllMultiWordsSearches)
+                    .percentOfLetters(percentOfLetters)
+                    .percentOfDigits(percentOfDigits)
+                    .numberOfSearches(totalNumberOfSearches)
                     .build();
             wordSearches.removeAll(collect);
             wordSearches.add(wordSearchDto);

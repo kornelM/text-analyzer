@@ -29,7 +29,6 @@ public class AnalyzeResultFactory {
                 .singleWordSearchResult(singleWordSearchResult)
                 .multiWordSearchResult(multiWordSearchResult)
                 .totalNumberOfRequests(totalNumberOfMultiSearches + totalNumberOfSingleSearches)
-//                .digitSearchResult()
                 .build();
     }
 }

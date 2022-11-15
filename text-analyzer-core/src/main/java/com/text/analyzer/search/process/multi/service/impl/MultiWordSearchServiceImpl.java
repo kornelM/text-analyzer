@@ -37,7 +37,6 @@ public class MultiWordSearchServiceImpl implements WordSearchService<MultiWordSe
         int theMostWordInSearch = numberOfWordsService.getTheMostWordsInSearch(wordSearchDtos);
         int theLeastWords = numberOfWordsService.getTheLeastWordsInSearch(wordSearchDtos);
         int numberOfAllSearches = numberOfWordsService.getTotalNumberOfSearches(wordSearchDtos);
-//        BigDecimal averageNumberOfChars = multiWordAverageService.getAverageNumberOfWordsPerSearch(wordSearchDtos, searches);
         BigDecimal averageNumberOfCharsPerWord = multiWordAverageService.getAverageNumberOfCharsPerWord(searches);
 
         return MultiWordSearchDto.builder()
@@ -45,7 +44,6 @@ public class MultiWordSearchServiceImpl implements WordSearchService<MultiWordSe
                 .averageNumberOfWords(averageNumberOfWords.intValue())
                 .theMostWordInSearch(theMostWordInSearch)
                 .theLeastWords(theLeastWords)
-//                .averageNumberOfChars(averageNumberOfChars)
                 .averageNumberOfCharsPerWord(averageNumberOfCharsPerWord)
                 .numberOfSearches(numberOfAllSearches)
                 .wordSearches(wordSearchDtos)

@@ -18,6 +18,6 @@ class SingleWordAverageServiceImpl implements SingleWordAverageService {
                 .sum()
         );
         BigDecimal numberOfAllSearches = BigDecimal.valueOf(totalNumberOfAllSearches);
-        return NumberUtils.divide(totalNumberOfCharsInSearches, numberOfAllSearches, 2, RoundingMode.HALF_EVEN);
+        return NumberUtils.divide(totalNumberOfCharsInSearches, numberOfAllSearches, 2, RoundingMode.UP);
     }
 }

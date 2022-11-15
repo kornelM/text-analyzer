@@ -11,5 +11,6 @@ import java.util.List;
 @ToString(callSuper = true)
 @SuperBuilder
 public class SingleWordSearchDto extends WordSearchResultDto {
+
     private List<LetterSearchDto> letterSearches;
 }

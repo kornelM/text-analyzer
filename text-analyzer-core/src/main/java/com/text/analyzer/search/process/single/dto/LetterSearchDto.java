@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @ToString(callSuper = true)
 @SuperBuilder
 public class LetterSearchDto {
+
     private LetterNumberEnum name;
     private int numberOfSearches;
     private BigDecimal percentOfAllOneWordSearches;

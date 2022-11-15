@@ -1,5 +1,6 @@
 package com.text.analyzer.search.process.multi.service.impl;
 
+import com.text.analyzer.common.utils.NumberUtils;
 import com.text.analyzer.search.process.multi.dto.WordSearchDto;
 import com.text.analyzer.search.process.multi.service.MultiWordAverageService;
 
@@ -14,7 +15,7 @@ class MultiWordAverageServiceImpl implements MultiWordAverageService {
         BigDecimal numberOfSearches = BigDecimal.valueOf(wordSearch.size());
         int totalNumberOfWords = getTotalNumberOfWords(wordSearch);
         BigDecimal numberOfWords = BigDecimal.valueOf(totalNumberOfWords);
-        return numberOfWords.divide(numberOfSearches, 2, RoundingMode.HALF_EVEN);
+        return NumberUtils.divide(numberOfWords, numberOfSearches, 2, RoundingMode.UP);
     }
 
     @Override
@@ -28,7 +29,7 @@ class MultiWordAverageServiceImpl implements MultiWordAverageService {
         BigDecimal numberOfCharsInSearches = BigDecimal.valueOf(totalNumberOfCharsInSearches);
         int totalNumberOfWords = getTotalNumberOfWords(wordSearch);
         BigDecimal numberOfWords = BigDecimal.valueOf(totalNumberOfWords);
-        return numberOfCharsInSearches.divide(numberOfWords, 4, RoundingMode.HALF_EVEN);
+        return NumberUtils.divide(numberOfCharsInSearches, numberOfWords);
     }
 
     @Override

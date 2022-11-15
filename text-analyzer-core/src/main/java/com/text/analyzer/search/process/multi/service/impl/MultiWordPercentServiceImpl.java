@@ -1,9 +1,9 @@
 package com.text.analyzer.search.process.multi.service.impl;
 
+import com.text.analyzer.common.utils.NumberUtils;
 import com.text.analyzer.search.process.multi.service.MultiWordPercentService;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 class MultiWordPercentServiceImpl implements MultiWordPercentService {
@@ -21,7 +21,7 @@ class MultiWordPercentServiceImpl implements MultiWordPercentService {
     @Override
     public BigDecimal percentOfThisQueryInCompareToAll(BigDecimal numberOfAllSingleWordSearches, List<String> singleWordSearch) {
         BigDecimal singleWordSize = new BigDecimal(singleWordSearch.size());
-        return singleWordSize.divide(numberOfAllSingleWordSearches, 4, RoundingMode.UP);
+        return NumberUtils.divide(singleWordSize, numberOfAllSingleWordSearches);
     }
 
     private double calculatePercentOfDigits(List<String> strings) {

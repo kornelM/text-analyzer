@@ -11,6 +11,7 @@ import com.text.analyzer.response.pojo.SearchName;
 import com.text.analyzer.response.pojo.WordSearch;
 import j2html.TagCreator;
 import j2html.tags.DomContent;
+import j2html.tags.specialized.PTag;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class MainInfoService extends AbstractChartService implements ChartServic
         BigDecimal averageNumberOfWords = analyzeResult.getAverageNumberOfWords();
         int theMostWordInSearch = analyzeResult.getTheMostWordInSearch();
         int theLeastWords = analyzeResult.getTheLeastWords();
-//        BigDecimal averageNumberOfChars = analyzeResult.getAverageNumberOfChars();
         BigDecimal averageNumberOfCharsPerWord = analyzeResult.getAverageNumberOfCharsPerWord();
         List<LetterSearch> letterSearches = analyzeResult.getLetterSearches();
         letterSearches.sort(Comparator.comparingInt(letterSearch -> letterSearch.getName().getWordLength()));
@@ -48,14 +48,13 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                         .with(TagCreator.h2("JEDNOSŁOWNYCH").withStyle("color:blue"))
                         .with(TagCreator.div()
                                 .with(TagCreator.h3())
-                                .with(TagCreator.p("name: " + name))
-                                .with(TagCreator.p("numberOfSearches: " + numberOfSearches))
-                                .with(TagCreator.p("percentOfAll: " + percentOfAll))
-                                .with(TagCreator.p("averageNumberOfWords: " + averageNumberOfWords))
-                                .with(TagCreator.p("theMostWordInSearch: " + theMostWordInSearch))
-                                .with(TagCreator.p("theLeastWords: " + theLeastWords))
-//                                .with(TagCreator.p("averageNumberOfChars: " + averageNumberOfChars))
-                                .with(TagCreator.p("averageNumberOfCharsPerWord: " + averageNumberOfCharsPerWord))
+                                .with(getParagraph("name", name.name()))
+                                .with(getParagraph("numberOfSearches", numberOfSearches))
+                                .with(getPercentParagraph("percentOfAll", percentOfAll))
+                                .with(getParagraph("averageNumberOfWords", averageNumberOfWords))
+                                .with(getParagraph("theMostWordInSearch", theMostWordInSearch))
+                                .with(getParagraph("theLeastWords", theLeastWords))
+                                .with(getParagraph("averageNumberOfCharsPerWord", averageNumberOfCharsPerWord))
                         )
         );
 
@@ -63,10 +62,10 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                 letterSearches.stream()
                         .map(e -> TagCreator.h3(e.getName().name())
                                 .with(TagCreator.h3())
-                                .with(TagCreator.p("numberOfSearches: " + e.getNumberOfSearches()))
-                                .with(TagCreator.p("percentOfAllOneWordSearches: " + e.getPercentOfAllOneWordSearches().toString()))
-                                .with(TagCreator.p("percentOfLetters: " + e.getPercentOfLetters().toString()))
-                                .with(TagCreator.p("percentOfDigits: " + e.getPercentOfDigits().toString()))
+                                .with(getParagraph("numberOfSearches", e.getNumberOfSearches()))
+                                .with(getPercentParagraph("percentOfAllOneWordSearches", e.getPercentOfAllOneWordSearches()))
+                                .with(getPercentParagraph("percentOfLetters", e.getPercentOfLetters()))
+                                .with(getPercentParagraph("percentOfDigits", e.getPercentOfDigits()))
                         )
                         .collect(Collectors.toList())
         );
@@ -81,7 +80,6 @@ public class MainInfoService extends AbstractChartService implements ChartServic
         BigDecimal averageNumberOfWords = multiWordSearchResult.getAverageNumberOfWords();
         int theMostWordInSearch = multiWordSearchResult.getTheMostWordInSearch();
         int theLeastWords = multiWordSearchResult.getTheLeastWords();
-//        BigDecimal averageNumberOfChars = multiWordSearchResult.getAverageNumberOfChars();
         BigDecimal averageNumberOfCharsPerWord = multiWordSearchResult.getAverageNumberOfCharsPerWord();
         List<WordSearch> wordsSearches = multiWordSearchResult.getWordsSearches();
         wordsSearches.sort(Comparator.comparingInt(wordSearch -> wordSearch.getName().getWordLength()));
@@ -91,14 +89,13 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                         .with(TagCreator.h2("WIELOSŁOWNYCH").withStyle("color:blue"))
                         .with(TagCreator.div()
                                 .with(TagCreator.h3())
-                                .with(TagCreator.p("name: " + name))
-                                .with(TagCreator.p("numberOfSearches: " + numberOfSearches))
-                                .with(TagCreator.p("percentOfAll: " + percentOfAll))
-                                .with(TagCreator.p("averageNumberOfWords: " + averageNumberOfWords))
-                                .with(TagCreator.p("theMostWordInSearch: " + theMostWordInSearch))
-                                .with(TagCreator.p("theLeastWords: " + theLeastWords))
-//                                .with(TagCreator.p("averageNumberOfChars: " + averageNumberOfChars))
-                                .with(TagCreator.p("averageNumberOfCharsPerWord: " + averageNumberOfCharsPerWord))
+                                .with(getParagraph("name", name.name()))
+                                .with(getParagraph("numberOfSearches", numberOfSearches))
+                                .with(getPercentParagraph("percentOfAll", percentOfAll))
+                                .with(getParagraph("averageNumberOfWords", averageNumberOfWords))
+                                .with(getParagraph("theMostWordInSearch", theMostWordInSearch))
+                                .with(getParagraph("theLeastWords", theLeastWords))
+                                .with(getParagraph("averageNumberOfCharsPerWord", averageNumberOfCharsPerWord))
                         )
         );
 
@@ -106,19 +103,35 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                 wordsSearches.stream()
                         .map(e -> TagCreator.h3(e.getName().name())
                                 .with(TagCreator.h3())
-                                .with(TagCreator.p("name: " + e.getName()))
-                                .with(TagCreator.p("numberOfSearches: " + e.getNumberOfSearches()))
-                                .with(TagCreator.p("percentOfAllMultiWordSearches: " + e.getPercentOfAllMultiWordSearches()))
-                                .with(TagCreator.p("percentOfLettersPerSearch: " + e.getPercentOfLettersPerSearch()))
-                                .with(TagCreator.p("percentOfDigitsPerSearch: " + e.getPercentOfDigitsPerSearch()))
-                                .with(TagCreator.p("averageNumberOfCharsPerWord: " + e.getAverageNumberOfCharsPerWord()))
-                                .with(TagCreator.p("averageNumberOfWords: " + e.getAverageNumberOfWords()))
-                                .with(TagCreator.p("averageNumberOfChars: " + e.getAverageNumberOfChars()))
-                                .with(TagCreator.p("averageNumberOfDigits: " + e.getAverageNumberOfDigits()))
+                                .with(getParagraph("name", e.getName().name()))
+                                .with(getParagraph("numberOfSearches", e.getNumberOfSearches()))
+                                .with(getPercentParagraph("percentOfAllMultiWordSearches", e.getPercentOfAllMultiWordSearches()))
+                                .with(getPercentParagraph("percentOfLettersPerSearch", e.getPercentOfLettersPerSearch()))
+                                .with(getPercentParagraph("percentOfDigitsPerSearch", e.getPercentOfDigitsPerSearch()))
+                                .with(getParagraph("averageNumberOfCharsPerWord", e.getAverageNumberOfCharsPerWord()))
+                                .with(getParagraph("averageNumberOfWords", e.getAverageNumberOfWords()))
+                                .with(getParagraph("averageNumberOfChars", e.getAverageNumberOfChars()))
+                                .with(getParagraph("averageNumberOfDigits", e.getAverageNumberOfDigits()))
                         )
                         .collect(Collectors.toList())
         );
         return contents;
+    }
+
+    private static PTag getParagraph(String placeholder, String value) {
+        return TagCreator.p(String.format("%s: %s", placeholder, value));
+    }
+
+    private static PTag getParagraph(String placeholder, BigDecimal value) {
+        return TagCreator.p(String.format("%s: %s", placeholder, value));
+    }
+
+    private static PTag getParagraph(String placeholder, int value) {
+        return TagCreator.p(String.format("%s: %s", placeholder, value));
+    }
+
+    private static PTag getPercentParagraph(String placeholder, BigDecimal value) {
+        return TagCreator.p(String.format("%s: %s%%", placeholder, value));
     }
 
     @Override

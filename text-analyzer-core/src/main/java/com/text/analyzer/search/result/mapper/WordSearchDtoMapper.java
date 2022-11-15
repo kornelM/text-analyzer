@@ -20,6 +20,8 @@ import static java.util.Objects.nonNull;
 @UtilityClass
 public class WordSearchDtoMapper {
 
+    private static final int FIRST_ELEMENT_INDEX = 0;
+
     public static List<WordSearchDto> mapToWordSearchDtos(List<MultiWordSearchDto> multiWordSearchDtos) {
         List<WordSearchDto> allWordSearches = multiWordSearchDtos.stream()
                 .flatMap(s -> s.getWordSearches().stream())
@@ -28,7 +30,7 @@ public class WordSearchDtoMapper {
 
         int sum = groupedWordSearches.values().stream()
                 .flatMap(Collection::stream)
-                .mapToInt(s -> s.getNumberOfSearches())
+                .mapToInt(WordSearchDto::getNumberOfSearches)
                 .sum();
 
         return groupedWordSearches.values().stream()
@@ -85,7 +87,7 @@ public class WordSearchDtoMapper {
         BigDecimal percentOfAllMultiWordsSearches1 = BigDecimal.ZERO.equals(BigDecimal.valueOf(totalNumberOfSearches)) ? BigDecimal.ZERO : NumberUtils.divide(totalNumberOfSearches, BigDecimal.valueOf(totalNumberOfMultiWordSearches));
 
         return WordSearchDto.builder()
-                .name(wordSearchDtos.get(0).getName())
+                .name(wordSearchDtos.get(FIRST_ELEMENT_INDEX).getName())
                 .numberOfSearches(totalNumberOfSearches)
                 .averageNumberOfCharsPerWord(averageNumberOfCharsPerWord)
                 .averageNumberOfWordsPerSearch(averageNumberOfWordsPerSearch)

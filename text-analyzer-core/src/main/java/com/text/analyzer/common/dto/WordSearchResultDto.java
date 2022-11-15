@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @ToString(callSuper = true)
 @SuperBuilder
 public class WordSearchResultDto {
+
     private SearchName name;
     private int numberOfSearches;
     private BigDecimal averageNumberOfCharsPerWord;
@@ -18,6 +19,4 @@ public class WordSearchResultDto {
     private int theMostWordInSearch;
     private int theLeastWords;
     private BigDecimal averageNumberOfDigits;
-    //    private BigDecimal averageNumberOfCharsPerWord;
-//    private BigDecimal averageNumberOfChars;
 }
