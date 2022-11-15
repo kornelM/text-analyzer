@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @Getter
 @ToString
 public enum LetterNumberEnum {
+
     ONE_LETTER_SEARCH(1),
     TWO_LETTER_SEARCH(2),
     THREE_LETTER_SEARCH(3),

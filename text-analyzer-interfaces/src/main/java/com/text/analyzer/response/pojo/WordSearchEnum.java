@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum WordSearchEnum {
+
     ONE_WORD_SEARCH(1),
     TWO_WORDS_SEARCH(2),
     THREE_WORDS_SEARCH(3),
@@ -19,10 +20,6 @@ public enum WordSearchEnum {
 
     WordSearchEnum(int wordLength) {
         this.wordLength = wordLength;
-    }
-
-    public static WordSearchEnum fromName(String wordSearchEnumString) {
-        return WordSearchEnum.valueOf(wordSearchEnumString);
     }
 
     public static WordSearchEnum valueOf(int givenWordLength) {

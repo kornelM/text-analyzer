@@ -16,6 +16,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnalyzeResult {
+
     private int totalNumberOfRequests;
     private Map<String, Integer> mostSearchPhrases;
     private SingleWordSearchResult singleWordSearchResult;

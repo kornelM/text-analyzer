@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DigitSearchResult {
+
     private BigDecimal percentOfAll;
     private int averageNumberOfWords;
     private int theMostWords;

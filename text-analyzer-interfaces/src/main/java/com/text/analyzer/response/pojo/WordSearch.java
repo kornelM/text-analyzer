@@ -1,5 +1,6 @@
 package com.text.analyzer.response.pojo;
 
+import com.text.analyzer.response.utils.Standarizer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WordSearch {
+
     private WordSearchEnum name;
     private int numberOfSearches;
     private BigDecimal percentOfAllMultiWordSearches;
@@ -23,4 +25,24 @@ public class WordSearch {
     private BigDecimal averageNumberOfWords;
     private int averageNumberOfChars;
     private int averageNumberOfDigits;
+
+    public BigDecimal getPercentOfAllMultiWordSearches() {
+        return Standarizer.standarizePercentValue(percentOfAllMultiWordSearches);
+    }
+
+    public BigDecimal getPercentOfLettersPerSearch() {
+        return Standarizer.standarizePercentValue(percentOfLettersPerSearch);
+    }
+
+    public BigDecimal getPercentOfDigitsPerSearch() {
+        return Standarizer.standarizePercentValue(percentOfDigitsPerSearch);
+    }
+
+    public BigDecimal getAverageNumberOfCharsPerWord() {
+        return Standarizer.standarizeAvgValue(averageNumberOfCharsPerWord);
+    }
+
+    public BigDecimal getAverageNumberOfWords() {
+        return Standarizer.standarizeAvgValue(averageNumberOfWords);
+    }
 }
