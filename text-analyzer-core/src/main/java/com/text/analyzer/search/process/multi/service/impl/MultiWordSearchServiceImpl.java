@@ -1,7 +1,6 @@
 package com.text.analyzer.search.process.multi.service.impl;
 
 import com.text.analyzer.common.service.WordSearchService;
-import com.text.analyzer.pojo.SearchType;
 import com.text.analyzer.response.pojo.SearchName;
 import com.text.analyzer.search.process.multi.dto.MultiWordSearchDto;
 import com.text.analyzer.search.process.multi.dto.WordSearchDto;
@@ -22,11 +21,6 @@ public class MultiWordSearchServiceImpl implements WordSearchService<MultiWordSe
         this.wordsSearchService = new WordsSearchServiceImpl();
         this.numberOfWordsService = new NumberOfWordsServiceImpl();
         this.multiWordAverageService = new MultiWordAverageServiceImpl();
-    }
-
-    @Override
-    public SearchType getType() {
-        return SearchType.MULTI;
     }
 
     @Override
