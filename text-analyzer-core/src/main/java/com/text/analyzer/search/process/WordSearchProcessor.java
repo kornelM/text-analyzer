@@ -1,4 +1,4 @@
-package com.text.analyzer.common.service;
+package com.text.analyzer.search.process;
 
 import java.util.List;
 

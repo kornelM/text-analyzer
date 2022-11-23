@@ -1,7 +1,7 @@
 package com.text.analyzer.search.process.multi.processor;
 
-import com.text.analyzer.common.service.WordSearchProcessor;
 import com.text.analyzer.response.pojo.SearchName;
+import com.text.analyzer.search.process.WordSearchProcessor;
 import com.text.analyzer.search.process.multi.creator.MultiWordSearchCreatorImpl;
 import com.text.analyzer.search.process.multi.creator.WordsSearchCreator;
 import com.text.analyzer.search.process.multi.creator.service.MultiWordAverageService;

@@ -1,7 +1,7 @@
 package com.text.analyzer.search.process.single.processor;
 
-import com.text.analyzer.common.service.WordSearchProcessor;
 import com.text.analyzer.response.pojo.SearchName;
+import com.text.analyzer.search.process.WordSearchProcessor;
 import com.text.analyzer.search.process.single.dto.LetterSearchDto;
 import com.text.analyzer.search.process.single.dto.SingleWordSearchDto;
 import com.text.analyzer.search.process.single.service.LetterSearchService;
