@@ -14,7 +14,6 @@ import java.io.IOException;
 
 public class TextAnalyzer {
 
-
     public static void main(String[] args) throws IOException {
         PropertyLoader propertyLoader = new PropertyLoader();
 
