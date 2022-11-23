@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @ToString
@@ -29,13 +27,10 @@ public enum LetterNumberEnum {
     }
 
     public static LetterNumberEnum valueOf(int givenWordLength) {
-        List<LetterNumberEnum> values = Arrays.stream(LetterNumberEnum.values()).filter(e -> !e.name().equalsIgnoreCase(TEN_OR_MORE_LETTER_SEARCH.name())).collect(Collectors.toList());
-
-        for (LetterNumberEnum wordCountEnum : values) {
-            if (wordCountEnum.wordLength == givenWordLength) {
-                return wordCountEnum;
-            }
-        }
-        return TEN_OR_MORE_LETTER_SEARCH;
+        return Arrays.stream(LetterNumberEnum.values())
+                .filter(e -> !e.name().equalsIgnoreCase(TEN_OR_MORE_LETTER_SEARCH.name()))
+                .filter(e -> e.wordLength == givenWordLength)
+                .findFirst()
+                .orElse(TEN_OR_MORE_LETTER_SEARCH);
     }
 }

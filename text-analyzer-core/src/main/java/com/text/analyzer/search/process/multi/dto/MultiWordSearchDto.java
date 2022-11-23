@@ -1,15 +1,24 @@
 package com.text.analyzer.search.process.multi.dto;
 
-import com.text.analyzer.common.dto.WordSearchResultDto;
+import com.text.analyzer.response.pojo.SearchName;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
 @ToString(callSuper = true)
 @SuperBuilder
-public class MultiWordSearchDto extends WordSearchResultDto {
+public class MultiWordSearchDto {
+
+    private SearchName name;
+    private int numberOfSearches;
+    private BigDecimal averageNumberOfCharsPerWord;
+    private int averageNumberOfWords;
+    private int theMostWordInSearch;
+    private int theLeastWords;
+    private BigDecimal averageNumberOfDigits;
     private List<WordSearchDto> wordSearches;
 }

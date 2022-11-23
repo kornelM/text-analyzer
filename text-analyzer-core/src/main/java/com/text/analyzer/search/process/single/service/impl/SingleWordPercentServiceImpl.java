@@ -6,15 +6,15 @@ import com.text.analyzer.search.process.single.service.SingleWordPercentService;
 import java.math.BigDecimal;
 import java.util.List;
 
-class SingleWordPercentServiceImpl implements SingleWordPercentService {
+public class SingleWordPercentServiceImpl implements SingleWordPercentService {
 
     @Override
-    public BigDecimal getPercentOfLetters(List<String> singleWordSearch) {
+    public BigDecimal percentOfLetters(List<String> singleWordSearch) {
         return BigDecimal.valueOf(calculatePercentOfLetters(singleWordSearch));
     }
 
     @Override
-    public BigDecimal getPercentOfDigits(List<String> singleWordSearch) {
+    public BigDecimal percentOfDigits(List<String> singleWordSearch) {
         return BigDecimal.valueOf(calculatePercentOfDigits(singleWordSearch));
     }
 

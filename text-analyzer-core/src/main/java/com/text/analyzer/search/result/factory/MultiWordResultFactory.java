@@ -1,6 +1,5 @@
 package com.text.analyzer.search.result.factory;
 
-import com.text.analyzer.common.dto.WordSearchResultDto;
 import com.text.analyzer.common.utils.NumberUtils;
 import com.text.analyzer.response.MultiWordSearchResult;
 import com.text.analyzer.response.pojo.SearchName;
@@ -26,6 +25,22 @@ public class MultiWordResultFactory {
 
     public MultiWordResultFactory() {
         this.multiWordResultCalculator = new MultiWordResultCalculator();
+    }
+
+    private static int getTotalNumberOfSearches(List<MultiWordSearchDto> multiWordSearchDtos) {
+        return multiWordSearchDtos.stream()
+                .map(MultiWordSearchDto::getNumberOfSearches)
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private static List<String> getPotentialSqlInjections(List<WordSearchDto> allWordSearches) {
+        return allWordSearches.stream()
+                .map(WordSearchDto::getPotentialSqlInjections)
+                .filter(Objects::nonNull)
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     public MultiWordSearchResult getMultiWordSearchResult(int totalNumberOfSingleSearches, int totalNumberOfMultiSearches, List<SingleWordSearchDto> singleWordSearchDtos, List<MultiWordSearchDto> multiWordSearchDtos) {
@@ -54,13 +69,6 @@ public class MultiWordResultFactory {
                 .build();
     }
 
-    private static int getTotalNumberOfSearches(List<MultiWordSearchDto> multiWordSearchDtos) {
-        return multiWordSearchDtos.stream()
-                .map(WordSearchResultDto::getNumberOfSearches)
-                .mapToInt(Integer::intValue)
-                .sum();
-    }
-
     private BigDecimal getPercentOfAll(int totalNumberOfSingleSearches, int totalNumberOfMultiSearches) {
         BigDecimal totalNumberOfMultiSearchesBigDecimal = BigDecimal.valueOf(totalNumberOfMultiSearches);
         BigDecimal totalNumberOfSearches = BigDecimal.valueOf(totalNumberOfSingleSearches).add(totalNumberOfMultiSearchesBigDecimal);
@@ -81,14 +89,5 @@ public class MultiWordResultFactory {
                 .map(WordSearchEnum::getWordLength)
                 .max(Comparator.naturalOrder())
                 .orElse(-1);
-    }
-
-    private static List<String> getPotentialSqlInjections(List<WordSearchDto> allWordSearches) {
-        return allWordSearches.stream()
-                .map(WordSearchDto::getPotentialSqlInjections)
-                .filter(Objects::nonNull)
-                .flatMap(Collection::stream)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
     }
 }

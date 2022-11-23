@@ -2,6 +2,8 @@ package com.text.analyzer.response.pojo;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 public enum WordSearchEnum {
 
@@ -25,11 +27,9 @@ public enum WordSearchEnum {
     public static WordSearchEnum valueOf(int givenWordLength) {
         WordSearchEnum[] values = WordSearchEnum.values();
 
-        for (WordSearchEnum wordCountEnum : values) {
-            if (wordCountEnum.wordLength == givenWordLength) {
-                return wordCountEnum;
-            }
-        }
-        return MORE_THAN_NINE_WORD_SEARCH;
+        return Arrays.stream(values)
+                .filter(e -> e.wordLength == givenWordLength)
+                .findFirst()
+                .orElse(MORE_THAN_NINE_WORD_SEARCH);
     }
 }

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import java.util.function.Function;
 
 @NoArgsConstructor
-class SingleWordSearchSeparatorImpl extends SearchSeparator {
+public class SingleWordSearchSeparatorImpl extends SearchSeparator {
 
     @Override
     public Function<String, Integer> keyClassifier() {

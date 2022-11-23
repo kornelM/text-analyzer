@@ -16,7 +16,7 @@ public class WordSearchDto {
     private int numberOfSearches;
     private BigDecimal averageNumberOfCharsPerWord;
     private BigDecimal averageNumberOfWordsPerSearch;
-    private BigDecimal percentOfAllMultiWordsSearches;
+    private BigDecimal percentOfAllMultiWordSearches;
     private BigDecimal percentOfLetters;
     private BigDecimal percentOfDigits;
     private int theMostWordInSearch;

@@ -9,6 +9,8 @@
     <modules>
         <module>text-analyzer-core</module>
         <module>text-analyzer-interfaces</module>
+        <module>text-analyzer-html</module>
+        <module>text-analyzer-data</module>
     </modules>
     <packaging>pom</packaging>
 

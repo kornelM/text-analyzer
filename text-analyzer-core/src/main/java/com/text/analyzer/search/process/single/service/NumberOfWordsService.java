@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface NumberOfWordsService {
 
-    int getAverageNumberOfWords(List<String> searches);
+    int averageNumberOfWords(List<String> searches);
 
-    int getTheMostWordsInSearch(List<String> searches);
+    int theMostWordsInSearch(List<String> searches);
 
-    int getTheLeastWordsInSearch(List<String> searches);
+    int theLeastWordsInSearch(List<String> searches);
 
-    int getTotalNumberOfSearches(List<LetterSearchDto> searches);
+    int totalNumberOfSearches(List<LetterSearchDto> searches);
 }

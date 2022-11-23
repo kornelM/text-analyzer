@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface LetterSearchService {
 
-    List<LetterSearchDto> letterSearchDtos(List<String> searches);
+    List<LetterSearchDto> createSingleWordSearches(List<String> searches);
 }

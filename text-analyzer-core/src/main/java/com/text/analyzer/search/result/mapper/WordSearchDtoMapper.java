@@ -41,57 +41,32 @@ public class WordSearchDtoMapper {
     private static WordSearchDto mergeWords(List<WordSearchDto> wordSearchDtos, int totalNumberOfMultiWordSearches) {
         BigDecimal averageNumberOfCharsPerWord = BigDecimal.ZERO;
         BigDecimal averageNumberOfWordsPerSearch = BigDecimal.ZERO;
-        BigDecimal percentOfAllMultiWordsSearches = BigDecimal.ZERO;
+        BigDecimal percentOfAllMultiWordSearches = BigDecimal.ZERO;
         BigDecimal percentOfLetters = BigDecimal.ZERO;
         BigDecimal percentOfDigits = BigDecimal.ZERO;
         Set<String> sqlInjections = new HashSet<>();
         int totalNumberOfSearches = wordSearchDtos.stream().map(WordSearchDto::getNumberOfSearches).map(BigDecimal::valueOf).mapToInt(BigDecimal::intValue).sum();
 
-        for (WordSearchDto wordSearchDto : wordSearchDtos) {
-            averageNumberOfCharsPerWord = averageNumberOfCharsPerWord.add(
-                    NumberUtils.divide(
-                            wordSearchDto.getAverageNumberOfCharsPerWord().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
-                            totalNumberOfSearches
-                    )
-            );
-            averageNumberOfWordsPerSearch = averageNumberOfWordsPerSearch.add(
-                    NumberUtils.divide(
-                            wordSearchDto.getAverageNumberOfWordsPerSearch().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
-                            totalNumberOfSearches
-                    )
-            );
-            percentOfAllMultiWordsSearches = percentOfAllMultiWordsSearches.add(
-                    NumberUtils.divide(
-                            wordSearchDto.getPercentOfAllMultiWordsSearches().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
-                            totalNumberOfSearches
-                    )
-            );
-            percentOfLetters = percentOfLetters.add(
-                    NumberUtils.divide(
-                            wordSearchDto.getPercentOfLetters().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
-                            totalNumberOfSearches
-                    )
-            );
-            percentOfDigits = percentOfDigits.add(
-                    NumberUtils.divide(
-                            wordSearchDto.getPercentOfDigits().multiply(BigDecimal.valueOf(wordSearchDto.getNumberOfSearches())),
-                            totalNumberOfSearches
-                    )
-            );
+        for (WordSearchDto dto : wordSearchDtos) {
+            averageNumberOfCharsPerWord = NumberUtils.calculateAverage(averageNumberOfCharsPerWord, totalNumberOfSearches, dto::getAverageNumberOfCharsPerWord, dto::getNumberOfSearches);
+            averageNumberOfWordsPerSearch = NumberUtils.calculateAverage(averageNumberOfWordsPerSearch, totalNumberOfSearches, dto::getAverageNumberOfWordsPerSearch, dto::getNumberOfSearches);
+            percentOfAllMultiWordSearches = NumberUtils.calculateAverage(percentOfAllMultiWordSearches, totalNumberOfSearches, dto::getPercentOfAllMultiWordSearches, dto::getNumberOfSearches);
+            percentOfLetters = NumberUtils.calculateAverage(percentOfLetters, totalNumberOfSearches, dto::getPercentOfLetters, dto::getNumberOfSearches);
+            percentOfDigits = NumberUtils.calculateAverage(percentOfDigits, totalNumberOfSearches, dto::getPercentOfDigits, dto::getNumberOfSearches);
 
-            if (nonNull(wordSearchDto.getPotentialSqlInjections()) && wordSearchDto.getPotentialSqlInjections().size() > 0) {
-                sqlInjections.addAll(wordSearchDto.getPotentialSqlInjections());
+            if (nonNull(dto.getPotentialSqlInjections()) && dto.getPotentialSqlInjections().size() > 0) {
+                sqlInjections.addAll(dto.getPotentialSqlInjections());
             }
         }
 
-        BigDecimal percentOfAllMultiWordsSearches1 = BigDecimal.ZERO.equals(BigDecimal.valueOf(totalNumberOfSearches)) ? BigDecimal.ZERO : NumberUtils.divide(totalNumberOfSearches, BigDecimal.valueOf(totalNumberOfMultiWordSearches));
+        BigDecimal percentOfAllMultiWordSearches1 = BigDecimal.ZERO.equals(BigDecimal.valueOf(totalNumberOfSearches)) ? BigDecimal.ZERO : NumberUtils.divide(totalNumberOfSearches, BigDecimal.valueOf(totalNumberOfMultiWordSearches));
 
         return WordSearchDto.builder()
                 .name(wordSearchDtos.get(FIRST_ELEMENT_INDEX).getName())
                 .numberOfSearches(totalNumberOfSearches)
                 .averageNumberOfCharsPerWord(averageNumberOfCharsPerWord)
                 .averageNumberOfWordsPerSearch(averageNumberOfWordsPerSearch)
-                .percentOfAllMultiWordsSearches(percentOfAllMultiWordsSearches1)
+                .percentOfAllMultiWordSearches(percentOfAllMultiWordSearches1)
                 .percentOfLetters(percentOfLetters)
                 .percentOfDigits(percentOfDigits)
                 .potentialSqlInjections(new ArrayList<>(sqlInjections))

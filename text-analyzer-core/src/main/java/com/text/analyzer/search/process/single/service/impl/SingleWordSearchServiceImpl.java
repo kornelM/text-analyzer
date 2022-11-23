@@ -1,48 +1,63 @@
 package com.text.analyzer.search.process.single.service.impl;
 
-import com.text.analyzer.common.service.WordSearchService;
-import com.text.analyzer.response.pojo.SearchName;
+import com.text.analyzer.common.service.SearchSeparator;
+import com.text.analyzer.response.pojo.LetterNumberEnum;
 import com.text.analyzer.search.process.single.dto.LetterSearchDto;
-import com.text.analyzer.search.process.single.dto.SingleWordSearchDto;
 import com.text.analyzer.search.process.single.service.LetterSearchService;
-import com.text.analyzer.search.process.single.service.NumberOfWordsService;
-import com.text.analyzer.search.process.single.service.SingleWordAverageService;
+import com.text.analyzer.search.process.single.service.SingleWordPercentService;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class SingleWordSearchServiceImpl implements WordSearchService<SingleWordSearchDto> {
+public class SingleWordSearchServiceImpl implements LetterSearchService {
 
-    private final LetterSearchService letterSearchService;
-    private final NumberOfWordsService numberOfWordsService;
-    private final SingleWordAverageService singleWordAverageService;
+    private final SearchSeparator searchSeparator;
+    private final SingleWordPercentService singleWordDigitsService;
 
     public SingleWordSearchServiceImpl() {
-        this.letterSearchService = new LetterSearchServiceImpl();
-        this.numberOfWordsService = new NumberOfWordsServiceImpl();
-        this.singleWordAverageService = new SingleWordAverageServiceImpl();
+        this.searchSeparator = new SingleWordSearchSeparatorImpl();
+        this.singleWordDigitsService = new SingleWordPercentServiceImpl();
     }
 
     @Override
-    public SingleWordSearchDto processSearches(List<String> searches) {
-        List<LetterSearchDto> letterSearchDtos = letterSearchService.letterSearchDtos(searches);
+    public List<LetterSearchDto> createSingleWordSearches(List<String> searches) {
+        Map<Integer, List<String>> separatedStringsByLength = searchSeparator.separateSearches(searches);
+        BigDecimal numberOfAllSingleWordSearches = getNumberOfAllSingleWordSearches(separatedStringsByLength);
 
-        int averageNumberOfWords = numberOfWordsService.getAverageNumberOfWords(searches);
-        int theMostWordInSearch = numberOfWordsService.getTheMostWordsInSearch(searches);
-        int theLeastWords = numberOfWordsService.getTheLeastWordsInSearch(searches);
-        int numberOfAllSearches = numberOfWordsService.getTotalNumberOfSearches(letterSearchDtos);
-        BigDecimal averageNumberOfChars = singleWordAverageService.getAverageNumberOfChars(letterSearchDtos, numberOfAllSearches);
-        BigDecimal averageNumberOfDigits = singleWordAverageService.getAverageNumberOfDigits(letterSearchDtos, numberOfAllSearches);
+        List<LetterSearchDto> letterSearches = new ArrayList<>();
+        for (Integer specificSearchLength : separatedStringsByLength.keySet()) {
+            List<String> singleWordSearch = separatedStringsByLength.get(specificSearchLength);
 
-        return SingleWordSearchDto.builder()
-                .averageNumberOfWords(averageNumberOfWords)
-                .theMostWordInSearch(theMostWordInSearch)
-                .theLeastWords(theLeastWords)
-                .averageNumberOfCharsPerWord(averageNumberOfChars)
-                .averageNumberOfDigits(averageNumberOfDigits)
-                .name(SearchName.SINGLE_WORD_SEARCH)
-                .numberOfSearches(numberOfAllSearches)
-                .letterSearches(letterSearchDtos)
-                .build();
+            LetterNumberEnum searchName = getSearchName(specificSearchLength);
+            BigDecimal percentOfAllOneWordSearches = singleWordDigitsService.percentOfThisQueryInCompareToAll(numberOfAllSingleWordSearches, singleWordSearch);
+            BigDecimal percentOfDigits = singleWordDigitsService.percentOfDigits(singleWordSearch);
+            BigDecimal percentOfLetters = singleWordDigitsService.percentOfLetters(singleWordSearch);
+
+            letterSearches.add(
+                    LetterSearchDto.builder()
+                            .name(searchName)
+                            .percentOfAllOneWordSearches(percentOfAllOneWordSearches)
+                            .percentOfDigits(percentOfDigits)
+                            .percentOfLetters(percentOfLetters)
+                            .numberOfSearches(singleWordSearch.size())
+                            .build()
+            );
+        }
+
+        return letterSearches;
+    }
+
+    private static BigDecimal getNumberOfAllSingleWordSearches(Map<Integer, List<String>> separatedStringsByLength) {
+        return new BigDecimal(separatedStringsByLength.values().stream()
+                .map(List::size)
+                .mapToInt(Integer::intValue)
+                .sum()
+        );
+    }
+
+    private LetterNumberEnum getSearchName(Integer specificSearchLength) {
+        return LetterNumberEnum.valueOf(specificSearchLength);
     }
 }

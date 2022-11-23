@@ -30,6 +30,18 @@
             <version>${parent.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.text.analyzer</groupId>
+            <artifactId>text-analyzer-data</artifactId>
+            <version>${parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.text.analyzer</groupId>
+            <artifactId>text-analyzer-html</artifactId>
+            <version>${parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
         <dependency>
             <groupId>com.j2html</groupId>

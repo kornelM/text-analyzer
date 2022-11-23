@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SingleWordAverageService {
 
-    BigDecimal getAverageNumberOfChars(List<LetterSearchDto> letterSearchDtos, int totalNumberOfAllSearches);
+    BigDecimal averageNumberOfChars(List<LetterSearchDto> letterSearchDtos, int totalNumberOfAllSearches);
 
-    BigDecimal getAverageNumberOfDigits(List<LetterSearchDto> letterSearchDtos, int totalNumberOfAllSearches);
+    BigDecimal averageNumberOfDigits(List<LetterSearchDto> letterSearchDtos, int totalNumberOfAllSearches);
 }

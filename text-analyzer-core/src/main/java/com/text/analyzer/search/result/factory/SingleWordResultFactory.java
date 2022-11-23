@@ -1,6 +1,5 @@
 package com.text.analyzer.search.result.factory;
 
-import com.text.analyzer.common.dto.WordSearchResultDto;
 import com.text.analyzer.common.utils.NumberUtils;
 import com.text.analyzer.response.SingleWordSearchResult;
 import com.text.analyzer.response.pojo.LetterSearch;
@@ -31,7 +30,7 @@ public class SingleWordResultFactory {
         List<LetterSearch> letterSearches = LetterSearchMapper.mapToLetterSearches(allLetterSearches);
         BigDecimal percentOfAll = NumberUtils.divide(totalNumberOfSingleSearches, (BigDecimal.valueOf(totalNumberOfSingleSearches).add(BigDecimal.valueOf(totalNumberOfMultiSearches))));
         int totalNumberOfSearches = singleWordSearchDtos.stream()
-                .map(WordSearchResultDto::getNumberOfSearches)
+                .map(SingleWordSearchDto::getNumberOfSearches)
                 .mapToInt(Integer::intValue)
                 .sum();
 
@@ -45,7 +44,7 @@ public class SingleWordResultFactory {
                 .letterSearches(letterSearches)
                 .theLeastWords(THE_LEAST_WORDS_DEFAULT_VALUE)
                 .theMostWordInSearch(THE_MOST_WORD_IN_SEARCH_DEFAULT_VALUE)
-                .averageNumberOfDigits(BigDecimal.valueOf(singleWordSearchDtos.stream().map(WordSearchResultDto::getAverageNumberOfDigits).mapToDouble(BigDecimal::doubleValue).average().orElse(-1)))
+                .averageNumberOfDigits(BigDecimal.valueOf(singleWordSearchDtos.stream().map(SingleWordSearchDto::getAverageNumberOfDigits).mapToDouble(BigDecimal::doubleValue).average().orElse(-1)))
                 .averageNumberOfWords(averageNumberOfWords)
                 .averageNumberOfCharsPerWord(averageNumberOfCharsPerWord)
                 .build();

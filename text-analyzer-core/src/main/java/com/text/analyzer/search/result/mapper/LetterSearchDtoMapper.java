@@ -40,18 +40,8 @@ public class LetterSearchDtoMapper {
         int totalNumberOfSearches = list.stream().map(LetterSearchDto::getNumberOfSearches).mapToInt(Integer::intValue).sum();
 
         for (LetterSearchDto dto : list) {
-            percentOfLetters = percentOfLetters.add(
-                    NumberUtils.divide(
-                            dto.getPercentOfLetters().multiply(BigDecimal.valueOf(dto.getNumberOfSearches())),
-                            totalNumberOfSearches
-                    )
-            );
-            percentOfDigits = percentOfDigits.add(
-                    NumberUtils.divide(
-                            dto.getPercentOfDigits().multiply(BigDecimal.valueOf(dto.getNumberOfSearches())),
-                            totalNumberOfSearches
-                    )
-            );
+            percentOfLetters = NumberUtils.calculateAverage(percentOfLetters, totalNumberOfSearches, dto::getPercentOfLetters, dto::getNumberOfSearches);
+            percentOfDigits = NumberUtils.calculateAverage(percentOfDigits, totalNumberOfSearches, dto::getPercentOfDigits, dto::getNumberOfSearches);
         }
         BigDecimal percentOfAllOneWordSearches = BigDecimal.ZERO.equals(numberOfDtos) ? BigDecimal.ZERO : NumberUtils.divide(totalNumberOfSearches, BigDecimal.valueOf(totalNumberOfOneWordSearches));
 

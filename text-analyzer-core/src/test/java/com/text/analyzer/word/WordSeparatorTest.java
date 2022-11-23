@@ -1,6 +1,7 @@
 package com.text.analyzer.word;
 
 import com.text.analyzer.pojo.SearchType;
+import com.text.analyzer.search.word.WordSeparator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface SingleWordPercentService {
 
-    public BigDecimal getPercentOfLetters(List<String> singleWordSearch);
+    BigDecimal percentOfLetters(List<String> singleWordSearch);
 
-    public BigDecimal getPercentOfDigits(List<String> singleWordSearch);
+    BigDecimal percentOfDigits(List<String> singleWordSearch);
 
-    public BigDecimal percentOfThisQueryInCompareToAll(BigDecimal numberOfAllSingleWordSearches, List<String> singleWordSearch);
+    BigDecimal percentOfThisQueryInCompareToAll(BigDecimal numberOfAllSingleWordSearches, List<String> singleWordSearch);
 }

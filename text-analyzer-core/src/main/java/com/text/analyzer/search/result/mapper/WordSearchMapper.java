@@ -20,7 +20,7 @@ public class WordSearchMapper {
         return WordSearch.builder()
                 .name(d.getName())
                 .numberOfSearches(d.getNumberOfSearches())
-                .percentOfAllMultiWordSearches(d.getPercentOfAllMultiWordsSearches())
+                .percentOfAllMultiWordSearches(d.getPercentOfAllMultiWordSearches())
                 .percentOfLettersPerSearch(d.getPercentOfLetters())
                 .percentOfDigitsPerSearch(d.getPercentOfDigits())
                 .averageNumberOfCharsPerWord(d.getAverageNumberOfCharsPerWord())

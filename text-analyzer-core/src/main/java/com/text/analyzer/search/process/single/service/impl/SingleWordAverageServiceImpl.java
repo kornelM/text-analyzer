@@ -7,12 +7,12 @@ import com.text.analyzer.search.process.single.service.SingleWordAverageService;
 import java.math.BigDecimal;
 import java.util.List;
 
-class SingleWordAverageServiceImpl implements SingleWordAverageService {
+public class SingleWordAverageServiceImpl implements SingleWordAverageService {
 
     public static final int DEFAULT_SCALE_TWO = 2;
 
     @Override
-    public BigDecimal getAverageNumberOfChars(List<LetterSearchDto> letterSearchDtos, int totalNumberOfAllSearches) {
+    public BigDecimal averageNumberOfChars(List<LetterSearchDto> letterSearchDtos, int totalNumberOfAllSearches) {
         BigDecimal totalNumberOfCharsInSearches = BigDecimal.valueOf(letterSearchDtos.stream()
                 .map(dto -> dto.getNumberOfSearches() * dto.getName().getWordLength())
                 .mapToInt(Integer::intValue)
@@ -23,12 +23,12 @@ class SingleWordAverageServiceImpl implements SingleWordAverageService {
     }
 
     @Override
-    public BigDecimal getAverageNumberOfDigits(List<LetterSearchDto> letterSearchDtos, int totalNumberOfAllSearches) {
-        return BigDecimal.valueOf(letterSearchDtos.stream()
-                .map(LetterSearchDto::getPercentOfDigits)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average()
-                .orElse(-1)
-        );
+    public BigDecimal averageNumberOfDigits(List<LetterSearchDto> letterSearchDtos, int totalNumberOfAllSearches) {
+        BigDecimal averageNumberOfDigits = BigDecimal.ZERO;
+
+        for (LetterSearchDto dto : letterSearchDtos) {
+            averageNumberOfDigits = NumberUtils.calculateAverage(averageNumberOfDigits, totalNumberOfAllSearches, dto::getPercentOfDigits, dto::getNumberOfSearches);
+        }
+        return averageNumberOfDigits;
     }
 }
