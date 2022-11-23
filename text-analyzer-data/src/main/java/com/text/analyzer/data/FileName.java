@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum FileName {
 
-    CHART_TEMPLATE("html/chart_script_template"),
-    RESULT_HTML("result/result.html");
+    CHART_TEMPLATE("html/chart_script_template");
 
     private final String uri;
 }

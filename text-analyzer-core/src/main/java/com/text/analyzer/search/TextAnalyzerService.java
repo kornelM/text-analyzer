@@ -1,7 +1,5 @@
 package com.text.analyzer.search;
 
-import com.text.analyzer.configuration.ConfigProperty;
-import com.text.analyzer.configuration.PropertyLoader;
 import com.text.analyzer.data.reader.SimpleFileReader;
 import com.text.analyzer.data.utils.DirectoryUtils;
 import com.text.analyzer.pojo.SearchType;
@@ -21,20 +19,16 @@ public class TextAnalyzerService {
     private final SimpleFileReader simpleFileReader;
     private final SingleWordSearchProcessor singleWordSearchService;
     private final MultiWordSearchProcessor multiWordSearchService;
-    private final PropertyLoader propertyLoader;
     private final AnalyzeResultFactory analyzeResultFactory;
 
     public TextAnalyzerService() {
         this.simpleFileReader = new SimpleFileReader();
         this.singleWordSearchService = new SingleWordSearchProcessor();
         this.multiWordSearchService = new MultiWordSearchProcessor();
-        this.propertyLoader = new PropertyLoader();
         this.analyzeResultFactory = new AnalyzeResultFactory();
     }
 
-    public AnalyzeResult analyzeTextSearches() {
-        String dirPath = propertyLoader.getProperty(ConfigProperty.PROPERTY_TEXT_FILES_DIRECTORY);
-
+    public AnalyzeResult analyzeTextSearches(String dirPath) {
         List<SingleWordSearchDto> singleWordSearchDtos = new ArrayList<>();
         List<MultiWordSearchDto> multiWordSearchDtos = new ArrayList<>();
 

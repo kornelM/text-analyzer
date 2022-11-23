@@ -14,15 +14,14 @@ public class SimpleFileWriter implements AnalyzerFileWriter {
         Path pathToFile = Paths.get(path);
         BufferedWriter writer = null;
         try {
-            Files.createDirectories(pathToFile.getParent());
             Files.deleteIfExists(pathToFile);
+            Files.createDirectories(pathToFile.getParent());
             Files.createFile(pathToFile);
             writer = new BufferedWriter(new FileWriter(path, false));
             writer.write(content);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
-
             if (writer != null) {
                 try {
                     writer.close();

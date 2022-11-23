@@ -1,6 +1,8 @@
 package com.text.analyzer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.text.analyzer.configuration.ConfigProperty;
+import com.text.analyzer.configuration.PropertyLoader;
 import com.text.analyzer.data.FileName;
 import com.text.analyzer.data.reader.SimpleFileReader;
 import com.text.analyzer.data.writer.SimpleFileWriter;
@@ -12,14 +14,22 @@ import java.io.IOException;
 
 public class TextAnalyzer {
 
+
     public static void main(String[] args) throws IOException {
-        SimpleFileWriter simpleFileWriter = new SimpleFileWriter();
+        PropertyLoader propertyLoader = new PropertyLoader();
+
+        String filesToAnalyzeDir = propertyLoader.getProperty(ConfigProperty.PROPERTY_TEXT_FILES_DIRECTORY);
         TextAnalyzerService textAnalyzerService = new TextAnalyzerService();
+        AnalyzeResult analyzeResult = textAnalyzerService.analyzeTextSearches(filesToAnalyzeDir);
+
         String htmlTemplate = new SimpleFileReader().readToString(FileName.CHART_TEMPLATE.getUri());
         HtmlCreator htmlCreator = new HtmlCreator(htmlTemplate);
-        AnalyzeResult analyzeResult = textAnalyzerService.analyzeTextSearches();
         String html = htmlCreator.createHtml(analyzeResult);
-        simpleFileWriter.writeToFile(html, FileName.RESULT_HTML.getUri());
+
+        String resultFileDir = propertyLoader.getProperty(ConfigProperty.PROPERTY_RESULT_FILE_DIRECTORY);
+        SimpleFileWriter simpleFileWriter = new SimpleFileWriter();
+        simpleFileWriter.writeToFile(html, resultFileDir);
+
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(objectMapper.writeValueAsString(analyzeResult));
     }
