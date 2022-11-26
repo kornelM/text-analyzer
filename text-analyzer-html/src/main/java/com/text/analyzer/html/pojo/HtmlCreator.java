@@ -44,7 +44,7 @@ public class HtmlCreator {
                 .map(s -> s.createChart(analyzeResult))
                 .flatMap(Collection::stream).toArray(DomContent[]::new);
 
-        String renderedHtml = html(
+        return html(
                 head(
                         meta().withContent(HTML_CONTENT_TYPE_NAME).withCharset(StandardCharsets.UTF_8.name()),
                         script().withSrc(IMPORT_CHART_JS_ADDRESS)
@@ -52,6 +52,5 @@ public class HtmlCreator {
                 body(domContents)
         )
                 .renderFormatted();
-        return renderedHtml;
     }
 }
