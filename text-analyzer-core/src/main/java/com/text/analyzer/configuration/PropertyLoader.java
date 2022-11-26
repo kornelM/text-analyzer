@@ -24,7 +24,7 @@ public class PropertyLoader {
                 .getResourceAsStream("application.properties")) {
             configuration.load(inputStream);
         } catch (IOException e) {
-            System.out.println("Exception occurred while reading properties! REASON: " + e.getMessage());
+            throw new RuntimeException("Exception occurred while reading properties! REASON: " + e.getMessage());
         }
         return configuration;
     }

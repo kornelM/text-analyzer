@@ -1,35 +1,36 @@
 package com.text.analyzer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.text.analyzer.configuration.ConfigProperty;
 import com.text.analyzer.configuration.PropertyLoader;
-import com.text.analyzer.data.FileName;
-import com.text.analyzer.data.reader.SimpleFileReader;
 import com.text.analyzer.data.writer.SimpleFileWriter;
 import com.text.analyzer.html.pojo.HtmlCreator;
 import com.text.analyzer.response.pojo.AnalyzeResult;
 import com.text.analyzer.search.TextAnalyzerService;
 
-import java.io.IOException;
-
 public class TextAnalyzer {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         PropertyLoader propertyLoader = new PropertyLoader();
 
         String filesToAnalyzeDir = propertyLoader.getProperty(ConfigProperty.PROPERTY_TEXT_FILES_DIRECTORY);
         TextAnalyzerService textAnalyzerService = new TextAnalyzerService();
         AnalyzeResult analyzeResult = textAnalyzerService.analyzeTextSearches(filesToAnalyzeDir);
 
-        String htmlTemplate = new SimpleFileReader().readToString(FileName.CHART_TEMPLATE.getUri());
-        HtmlCreator htmlCreator = new HtmlCreator(htmlTemplate);
+        HtmlCreator htmlCreator = new HtmlCreator();
         String html = htmlCreator.createHtml(analyzeResult);
 
-        String resultFileDir = propertyLoader.getProperty(ConfigProperty.PROPERTY_RESULT_FILE_DIRECTORY);
-        SimpleFileWriter simpleFileWriter = new SimpleFileWriter();
-        simpleFileWriter.writeToFile(html, resultFileDir);
+        writeResultToFile(propertyLoader, analyzeResult, html);
+    }
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper.writeValueAsString(analyzeResult));
+    private static void writeResultToFile(PropertyLoader propertyLoader, AnalyzeResult analyzeResult, String html) throws JsonProcessingException {
+        SimpleFileWriter simpleFileWriter = new SimpleFileWriter();
+        simpleFileWriter.writeToFile(html, propertyLoader.getProperty(ConfigProperty.PROPERTY_RESULT_HTML_FILE_DIRECTORY));
+
+        ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+        String resultJson = objectMapper.writeValueAsString(analyzeResult);
+        simpleFileWriter.writeToFile(resultJson, propertyLoader.getProperty(ConfigProperty.PROPERTY_RESULT_JSON_FILE_DIRECTORY));
     }
 }

@@ -11,17 +11,26 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${dependency.version.jupiter}</version>
-            <scope>test</scope>
-        </dependency>
+        <!--text analyzer-->
         <dependency>
             <groupId>com.text.analyzer</groupId>
             <artifactId>text-analyzer-interfaces</artifactId>
             <version>${parent.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.text.analyzer</groupId>
+            <artifactId>text-analyzer-data</artifactId>
+            <version>${parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--others-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${dependency.version.jupiter}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.j2html</groupId>

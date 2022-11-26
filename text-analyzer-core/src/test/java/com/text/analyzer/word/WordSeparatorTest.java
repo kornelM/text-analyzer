@@ -16,8 +16,10 @@ class WordSeparatorTest {
         //given
         String single = "single ";
         String singleTwo = " single_two";
-        String multiOne = "multi one";
-        String multiTwentyOne = "multi twenty one";
+        String multiOne = " multi one ";
+        String multiTwentyOne = " multi twenty one ";
+        String expectedMultiOne = "multi one";
+        String expectedMultiTwentyOne = "multi twenty one";
 
         List<String> given = List.of(
                 single,
@@ -28,7 +30,7 @@ class WordSeparatorTest {
 
         Map<SearchType, List<String>> expected = Map.of(
                 SearchType.SINGLE, List.of(single.trim(), singleTwo.trim()),
-                SearchType.MULTI, List.of(multiOne, multiTwentyOne)
+                SearchType.MULTI, List.of(expectedMultiOne, expectedMultiTwentyOne)
         );
 
         //when

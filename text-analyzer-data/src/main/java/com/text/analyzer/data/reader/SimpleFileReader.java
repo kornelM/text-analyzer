@@ -16,6 +16,7 @@ import static java.util.Objects.nonNull;
 
 public class SimpleFileReader implements AnalyzerFileReader {
 
+    @Override
     public List<String> readToList(String path) {
         List<String> list = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path)), StandardCharsets.UTF_8))) {
@@ -24,11 +25,12 @@ public class SimpleFileReader implements AnalyzerFileReader {
                 list.add(line);
             }
         } catch (final IOException e) {
-            System.out.println("Error while reading file under path: " + path + " REASON: " + e.getMessage());
+            throw new RuntimeException("Error while reading file under path: " + path + " REASON: " + e.getMessage());
         }
         return list;
     }
 
+    @Override
     public String readToString(String path) {
         URL resource = getClass().getClassLoader().getResource(path);
         if (nonNull(resource)) {

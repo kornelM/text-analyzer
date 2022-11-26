@@ -3,7 +3,7 @@ package com.text.analyzer.html.charts.impl;
 import com.text.analyzer.html.charts.AbstractChartService;
 import com.text.analyzer.html.charts.ChartService;
 import com.text.analyzer.html.pojo.ChartName;
-import com.text.analyzer.html.pojo.PlaceholderName;
+import com.text.analyzer.html.pojo.ParagraphName;
 import com.text.analyzer.response.MultiWordSearchResult;
 import com.text.analyzer.response.SingleWordSearchResult;
 import com.text.analyzer.response.pojo.AnalyzeResult;
@@ -47,13 +47,13 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                         .with(TagCreator.h2(SINGLE_NAME_MULTI_WORD).withStyle(STYLE_COLOR_BLUE))
                         .with(TagCreator.div()
                                 .with(TagCreator.h3())
-                                .with(getParagraph(PlaceholderName.NAME_SINGLE_WORD_SEARCH, analyzeResult.getName().name()))
-                                .with(getParagraph(PlaceholderName.NUMBER_OF_SEARCHES, analyzeResult.getNumberOfSearches()))
-                                .with(getPercentParagraph(PlaceholderName.PERCENT_OF_ALL_SEARCHES, analyzeResult.getPercentOfAll()))
-                                .with(getParagraph(PlaceholderName.AVERAGE_NUMBER_OF_WORDS, analyzeResult.getAverageNumberOfWords()))
-                                .with(getParagraph(PlaceholderName.THE_MOST_WORDS_IN_SEARCH, analyzeResult.getTheMostWordInSearch()))
-                                .with(getParagraph(PlaceholderName.THE_LEAST_WORDS_IN_SEARCH, analyzeResult.getTheLeastWords()))
-                                .with(getParagraph(PlaceholderName.AVERAGE_NUMBER_OF_CHARS_PER_WORD, analyzeResult.getAverageNumberOfCharsPerWord()))
+                                .with(getParagraph(ParagraphName.NAME_SINGLE_WORD_SEARCH, analyzeResult.getName().name()))
+                                .with(getParagraph(ParagraphName.NUMBER_OF_SEARCHES, analyzeResult.getNumberOfSearches()))
+                                .with(getPercentParagraph(ParagraphName.PERCENT_OF_ALL_SEARCHES, analyzeResult.getPercentOfAll()))
+                                .with(getParagraph(ParagraphName.AVERAGE_NUMBER_OF_WORDS, analyzeResult.getAverageNumberOfWords()))
+                                .with(getParagraph(ParagraphName.THE_MOST_WORDS_IN_SEARCH, analyzeResult.getTheMostWordInSearch()))
+                                .with(getParagraph(ParagraphName.THE_LEAST_WORDS_IN_SEARCH, analyzeResult.getTheLeastWords()))
+                                .with(getParagraph(ParagraphName.AVERAGE_NUMBER_OF_CHARS_PER_WORD, analyzeResult.getAverageNumberOfCharsPerWord()))
                         )
         );
 
@@ -63,10 +63,10 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                 letterSearches.stream()
                         .map(e -> TagCreator.h3(e.getName().name())
                                 .with(TagCreator.h3())
-                                .with(getParagraph(PlaceholderName.NUMBER_OF_SEARCHES, e.getNumberOfSearches()))
-                                .with(getPercentParagraph(PlaceholderName.PERCENT_OF_ALL_SINGLE_WORD_SEARCHES, e.getPercentOfAllOneWordSearches()))
-                                .with(getPercentParagraph(PlaceholderName.PERCENT_OF_LETTERS, e.getPercentOfLetters()))
-                                .with(getPercentParagraph(PlaceholderName.PERCENT_OF_DIGITS, e.getPercentOfDigits()))
+                                .with(getParagraph(ParagraphName.NUMBER_OF_SEARCHES, e.getNumberOfSearches()))
+                                .with(getPercentParagraph(ParagraphName.PERCENT_OF_ALL_SINGLE_WORD_SEARCHES, e.getPercentOfAllOneWordSearches()))
+                                .with(getPercentParagraph(ParagraphName.PERCENT_OF_LETTERS, e.getPercentOfLetters()))
+                                .with(getPercentParagraph(ParagraphName.PERCENT_OF_DIGITS, e.getPercentOfDigits()))
                         )
                         .collect(Collectors.toList())
         );
@@ -80,13 +80,13 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                         .with(TagCreator.h2(HEADER_NAME_MULTI_WORD).withStyle(STYLE_COLOR_BLUE))
                         .with(TagCreator.div()
                                 .with(TagCreator.h3())
-                                .with(getParagraph(PlaceholderName.NAME_MULTI_WORD_SEARCH, multiWordSearchResult.getName().name()))
-                                .with(getParagraph(PlaceholderName.NUMBER_OF_SEARCHES, multiWordSearchResult.getNumberOfSearches()))
-                                .with(getPercentParagraph(PlaceholderName.PERCENT_OF_ALL_SEARCHES, multiWordSearchResult.getPercentOfAll()))
-                                .with(getParagraph(PlaceholderName.AVERAGE_NUMBER_OF_WORDS, multiWordSearchResult.getAverageNumberOfWords()))
-                                .with(getParagraph(PlaceholderName.THE_MOST_WORDS_IN_SEARCH, multiWordSearchResult.getTheMostWordInSearch()))
-                                .with(getParagraph(PlaceholderName.THE_LEAST_WORDS_IN_SEARCH, multiWordSearchResult.getTheLeastWords()))
-                                .with(getParagraph(PlaceholderName.AVERAGE_NUMBER_OF_CHARS_PER_WORD, multiWordSearchResult.getAverageNumberOfCharsPerWord()))
+                                .with(getParagraph(ParagraphName.NAME_MULTI_WORD_SEARCH, multiWordSearchResult.getName().name()))
+                                .with(getParagraph(ParagraphName.NUMBER_OF_SEARCHES, multiWordSearchResult.getNumberOfSearches()))
+                                .with(getPercentParagraph(ParagraphName.PERCENT_OF_ALL_SEARCHES, multiWordSearchResult.getPercentOfAll()))
+                                .with(getParagraph(ParagraphName.AVERAGE_NUMBER_OF_WORDS, multiWordSearchResult.getAverageNumberOfWords()))
+                                .with(getParagraph(ParagraphName.THE_MOST_WORDS_IN_SEARCH, multiWordSearchResult.getTheMostWordInSearch()))
+                                .with(getParagraph(ParagraphName.THE_LEAST_WORDS_IN_SEARCH, multiWordSearchResult.getTheLeastWords()))
+                                .with(getParagraph(ParagraphName.AVERAGE_NUMBER_OF_CHARS_PER_WORD, multiWordSearchResult.getAverageNumberOfCharsPerWord()))
                         )
         );
 
@@ -96,12 +96,12 @@ public class MainInfoService extends AbstractChartService implements ChartServic
                 wordsSearches.stream()
                         .map(e -> TagCreator.h3(e.getName().name())
                                 .with(TagCreator.h3())
-                                .with(getParagraph(PlaceholderName.NUMBER_OF_SEARCHES, e.getNumberOfSearches()))
-                                .with(getPercentParagraph(PlaceholderName.PERCENT_OF_ALL_MULTI_WORD_SEARCHES, e.getPercentOfAllMultiWordSearches()))
-                                .with(getPercentParagraph(PlaceholderName.PERCENT_OF_LETTERS, e.getPercentOfLettersPerSearch()))
-                                .with(getPercentParagraph(PlaceholderName.PERCENT_OF_DIGITS, e.getPercentOfDigitsPerSearch()))
-                                .with(getParagraph(PlaceholderName.AVERAGE_NUMBER_OF_CHARS_PER_WORD, e.getAverageNumberOfCharsPerWord()))
-                                .with(getParagraph(PlaceholderName.AVERAGE_NUMBER_OF_WORDS, e.getAverageNumberOfWords()))
+                                .with(getParagraph(ParagraphName.NUMBER_OF_SEARCHES, e.getNumberOfSearches()))
+                                .with(getPercentParagraph(ParagraphName.PERCENT_OF_ALL_MULTI_WORD_SEARCHES, e.getPercentOfAllMultiWordSearches()))
+                                .with(getPercentParagraph(ParagraphName.PERCENT_OF_LETTERS, e.getPercentOfLettersPerSearch()))
+                                .with(getPercentParagraph(ParagraphName.PERCENT_OF_DIGITS, e.getPercentOfDigitsPerSearch()))
+                                .with(getParagraph(ParagraphName.AVERAGE_NUMBER_OF_CHARS_PER_WORD, e.getAverageNumberOfCharsPerWord()))
+                                .with(getParagraph(ParagraphName.AVERAGE_NUMBER_OF_WORDS, e.getAverageNumberOfWords()))
                         )
                         .collect(Collectors.toList())
         );

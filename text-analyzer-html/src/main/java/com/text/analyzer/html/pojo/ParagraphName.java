@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum PlaceholderName {
+public enum ParagraphName {
 
     AVERAGE_NUMBER_OF_CHARS_PER_WORD("Average number of chars per word"),
     AVERAGE_NUMBER_OF_WORDS("Average number of words"),
