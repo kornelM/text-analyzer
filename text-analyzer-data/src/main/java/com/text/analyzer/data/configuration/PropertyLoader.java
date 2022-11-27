@@ -1,4 +1,4 @@
-package com.text.analyzer.configuration;
+package com.text.analyzer.data.configuration;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +10,7 @@ public class PropertyLoader {
 
     private Properties conf;
 
-    public String getProperty(ConfigProperty property) {
+    public String getProperty(ResourceProperty property) {
         if (isNull(this.conf)) {
             this.conf = loadProperties();
         }

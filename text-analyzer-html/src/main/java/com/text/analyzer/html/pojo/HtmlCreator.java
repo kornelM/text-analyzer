@@ -1,6 +1,7 @@
 package com.text.analyzer.html.pojo;
 
-import com.text.analyzer.data.FileName;
+import com.text.analyzer.data.configuration.PropertyLoader;
+import com.text.analyzer.data.configuration.ResourceProperty;
 import com.text.analyzer.data.reader.AnalyzerFileReader;
 import com.text.analyzer.data.reader.SimpleFileReader;
 import com.text.analyzer.html.charts.ChartService;
@@ -28,9 +29,9 @@ public class HtmlCreator {
 
     private final List<ChartService> chartServices;
 
-    public HtmlCreator() {
+    public HtmlCreator(PropertyLoader propertyLoader) {
         AnalyzerFileReader analyzerFileReader = new SimpleFileReader();
-        String htmlTemplate = analyzerFileReader.readToString(FileName.CHART_TEMPLATE.getUri());
+        String htmlTemplate = analyzerFileReader.readToString(propertyLoader.getProperty(ResourceProperty.PROPERTY_HTML_CHART_TEMPLATE));
         this.chartServices = List.of(
                 new MainInfoService(htmlTemplate),
                 new MainChartService(htmlTemplate),

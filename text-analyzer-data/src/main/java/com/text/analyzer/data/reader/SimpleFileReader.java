@@ -3,8 +3,6 @@ package com.text.analyzer.data.reader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,11 +30,11 @@ public class SimpleFileReader implements AnalyzerFileReader {
 
     @Override
     public String readToString(String path) {
-        URL resource = getClass().getClassLoader().getResource(path);
-        if (nonNull(resource)) {
+        if (nonNull(path)) {
             try {
-                return Files.readString(Path.of(resource.toURI()));
-            } catch (IOException | URISyntaxException e) {
+                System.out.println("resource: " + path);
+                return Files.readString(Path.of(path));
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }

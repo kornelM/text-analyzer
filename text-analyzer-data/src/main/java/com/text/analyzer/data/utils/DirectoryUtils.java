@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 public class DirectoryUtils {
 
     public List<String> listFilesInDir(String dir) {
+        System.out.println("dir: " + dir);
         try (Stream<Path> stream = Files.list(Paths.get(dir))) {
             return stream
                     .filter(file -> !Files.isDirectory(file))
