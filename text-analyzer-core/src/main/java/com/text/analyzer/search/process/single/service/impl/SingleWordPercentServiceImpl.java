@@ -10,12 +10,16 @@ public class SingleWordPercentServiceImpl implements SingleWordPercentService {
 
     @Override
     public BigDecimal percentOfLetters(List<String> singleWordSearch) {
-        return BigDecimal.valueOf(calculatePercentOfLetters(singleWordSearch));
+        double calculatePercentOfLetters = calculatePercentOfLetters(singleWordSearch);
+        System.out.println(calculatePercentOfLetters);
+        return BigDecimal.valueOf(calculatePercentOfLetters);
     }
 
     @Override
     public BigDecimal percentOfDigits(List<String> singleWordSearch) {
-        return BigDecimal.valueOf(calculatePercentOfDigits(singleWordSearch));
+        double calculatePercentOfDigits = calculatePercentOfDigits(singleWordSearch);
+        System.out.println(calculatePercentOfDigits);
+        return BigDecimal.valueOf(calculatePercentOfDigits);
     }
 
     @Override
