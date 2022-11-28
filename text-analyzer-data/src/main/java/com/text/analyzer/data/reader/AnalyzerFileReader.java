@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface AnalyzerFileReader {
 
-    List<String> readToList(String path);
+    List<String> readAsList(String path);
 
     String readToString(String path);
 }

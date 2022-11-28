@@ -62,7 +62,6 @@ public class MultiWordSearchCreatorImpl implements WordsSearchCreator {
                             .build()
             );
         }
-
         return mergeWordSearches(wordSearches);
     }
 

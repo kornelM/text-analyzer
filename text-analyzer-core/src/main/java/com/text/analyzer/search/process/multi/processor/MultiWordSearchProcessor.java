@@ -10,10 +10,12 @@ import com.text.analyzer.search.process.multi.creator.service.impl.MultiWordAver
 import com.text.analyzer.search.process.multi.creator.service.impl.StatsServiceImpl;
 import com.text.analyzer.search.process.multi.dto.MultiWordSearchDto;
 import com.text.analyzer.search.process.multi.dto.WordSearchDto;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Slf4j
 public class MultiWordSearchProcessor implements WordSearchProcessor<MultiWordSearchDto> {
 
     private final WordsSearchCreator wordsSearchCreator;
@@ -28,6 +30,7 @@ public class MultiWordSearchProcessor implements WordSearchProcessor<MultiWordSe
 
     @Override
     public MultiWordSearchDto processSearches(List<String> searches) {
+        long start = System.currentTimeMillis();
         List<WordSearchDto> wordSearchDtos = wordsSearchCreator.createWordsSearches(searches);
 
         BigDecimal averageNumberOfWords = statsService.averageNumberOfWords(wordSearchDtos);
@@ -36,7 +39,7 @@ public class MultiWordSearchProcessor implements WordSearchProcessor<MultiWordSe
         int numberOfAllSearches = statsService.totalNumberOfSearches(wordSearchDtos);
         BigDecimal averageNumberOfCharsPerWord = multiWordAverageService.averageNumberOfCharsPerWord(searches);
 
-        return MultiWordSearchDto.builder()
+        MultiWordSearchDto multiWordSearchDto = MultiWordSearchDto.builder()
                 .name(SearchName.MULTI_WORD_SEARCH)
                 .averageNumberOfWords(averageNumberOfWords.intValue())
                 .theMostWordInSearch(theMostWordInSearch)
@@ -45,5 +48,7 @@ public class MultiWordSearchProcessor implements WordSearchProcessor<MultiWordSe
                 .numberOfSearches(numberOfAllSearches)
                 .wordSearches(wordSearchDtos)
                 .build();
+        log.info("Processing {} ({} searches) took: {} ms", multiWordSearchDto.getName(), numberOfAllSearches, System.currentTimeMillis() - start);
+        return multiWordSearchDto;
     }
 }

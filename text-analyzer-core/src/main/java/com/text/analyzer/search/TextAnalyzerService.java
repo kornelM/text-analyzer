@@ -10,11 +10,13 @@ import com.text.analyzer.search.process.single.dto.SingleWordSearchDto;
 import com.text.analyzer.search.process.single.processor.SingleWordSearchProcessor;
 import com.text.analyzer.search.result.factory.AnalyzeResultFactory;
 import com.text.analyzer.search.word.WordSeparator;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class TextAnalyzerService {
     private final SimpleFileReader simpleFileReader;
     private final SingleWordSearchProcessor singleWordSearchService;
@@ -33,10 +35,12 @@ public class TextAnalyzerService {
         List<MultiWordSearchDto> multiWordSearchDtos = new ArrayList<>();
 
         for (String filePath : DirectoryUtils.listFilesInDir(dirPath)) {
-            List<String> searches = simpleFileReader.readToList(filePath);
+            long start = System.currentTimeMillis();
+            List<String> searches = simpleFileReader.readAsList(filePath);
             Map<SearchType, List<String>> separatedSearches = WordSeparator.separate(searches);
             singleWordSearchDtos.add(singleWordSearchService.processSearches(separatedSearches.get(SearchType.SINGLE)));
             multiWordSearchDtos.add(multiWordSearchService.processSearches(separatedSearches.get(SearchType.MULTI)));
+            log.info("Processing file: {} took: {} ms", filePath, System.currentTimeMillis() - start);
         }
 
         return analyzeResultFactory.buildAnalyzeResult(singleWordSearchDtos, multiWordSearchDtos);

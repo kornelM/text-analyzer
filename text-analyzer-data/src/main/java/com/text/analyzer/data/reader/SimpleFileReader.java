@@ -15,7 +15,7 @@ import static java.util.Objects.nonNull;
 public class SimpleFileReader implements AnalyzerFileReader {
 
     @Override
-    public List<String> readToList(String path) {
+    public List<String> readAsList(String path) {
         List<String> list = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path)), StandardCharsets.UTF_8))) {
             String line;
@@ -32,7 +32,6 @@ public class SimpleFileReader implements AnalyzerFileReader {
     public String readToString(String path) {
         if (nonNull(path)) {
             try {
-                System.out.println("resource: " + path);
                 return Files.readString(Path.of(path));
             } catch (IOException e) {
                 throw new RuntimeException(e);

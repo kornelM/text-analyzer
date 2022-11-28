@@ -10,10 +10,12 @@ import com.text.analyzer.search.process.single.service.SingleWordAverageService;
 import com.text.analyzer.search.process.single.service.impl.NumberOfWordsServiceImpl;
 import com.text.analyzer.search.process.single.service.impl.SingleWordAverageServiceImpl;
 import com.text.analyzer.search.process.single.service.impl.SingleWordSearchServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Slf4j
 public class SingleWordSearchProcessor implements WordSearchProcessor<SingleWordSearchDto> {
 
     private final LetterSearchService letterSearchService;
@@ -28,6 +30,7 @@ public class SingleWordSearchProcessor implements WordSearchProcessor<SingleWord
 
     @Override
     public SingleWordSearchDto processSearches(List<String> searches) {
+        long start = System.currentTimeMillis();
         List<LetterSearchDto> singleWordSearches = letterSearchService.createSingleWordSearches(searches);
 
         int averageNumberOfWords = numberOfWordsService.averageNumberOfWords(searches);
@@ -37,7 +40,7 @@ public class SingleWordSearchProcessor implements WordSearchProcessor<SingleWord
         BigDecimal averageNumberOfChars = singleWordAverageService.averageNumberOfChars(singleWordSearches, numberOfAllSearches);
         BigDecimal averageNumberOfDigits = singleWordAverageService.averageNumberOfDigits(singleWordSearches, numberOfAllSearches);
 
-        return SingleWordSearchDto.builder()
+        SingleWordSearchDto singleWordSearchDto = SingleWordSearchDto.builder()
                 .averageNumberOfWords(averageNumberOfWords)
                 .theMostWordInSearch(theMostWordInSearch)
                 .theLeastWords(theLeastWords)
@@ -47,5 +50,7 @@ public class SingleWordSearchProcessor implements WordSearchProcessor<SingleWord
                 .numberOfSearches(numberOfAllSearches)
                 .letterSearches(singleWordSearches)
                 .build();
+        log.info("Processing {} ({} searches) took: {} ms", singleWordSearchDto.getName(), numberOfAllSearches, System.currentTimeMillis() - start);
+        return singleWordSearchDto;
     }
 }
