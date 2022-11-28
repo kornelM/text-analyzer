@@ -9,6 +9,8 @@ blik do kolegi
 transakcja blikowa
 wypłata pieniędzy z bankomatu
 one
+
+
 one two
 one two three
 one two three four
