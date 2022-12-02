@@ -48,6 +48,11 @@
             <artifactId>j2html</artifactId>
             <version>1.6.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${dependency.version.apache}</version>
+        </dependency>
 
     </dependencies>
 

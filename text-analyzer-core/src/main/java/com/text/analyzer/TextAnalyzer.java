@@ -20,7 +20,8 @@ public class TextAnalyzer {
         log.info("Loading properties took: {} ms", System.currentTimeMillis() - start);
 
         String filesToAnalyzeDir = propertyLoader.getProperty(ResourceProperty.PROPERTY_TEXT_FILES_DIRECTORY);
-        TextAnalyzerService textAnalyzerService = new TextAnalyzerService();
+        String mostSearchedPhrasesLimit = propertyLoader.getProperty(ResourceProperty.PROPERTY_MOST_SEARCHED_PHRASES_LIMIT);
+        TextAnalyzerService textAnalyzerService = new TextAnalyzerService(mostSearchedPhrasesLimit);
 
         start = System.currentTimeMillis();
         AnalyzeResult analyzeResult = textAnalyzerService.analyzeTextSearches(filesToAnalyzeDir);

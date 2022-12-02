@@ -18,7 +18,7 @@ import java.util.Map;
 public class AnalyzeResult {
 
     private int totalNumberOfRequests;
-    private Map<String, Integer> mostSearchPhrases;
+    private Map<String, Long> mostSearchPhrases;
     private SingleWordSearchResult singleWordSearchResult;
     private MultiWordSearchResult multiWordSearchResult;
     private DigitSearchResult digitSearchResult;
